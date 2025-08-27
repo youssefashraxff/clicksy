@@ -1,5 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./styles/typography.css";
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+
+@import "./styles/themes.css";
+@import "./styles/variables.css";
+@import "./styles/base.css";
