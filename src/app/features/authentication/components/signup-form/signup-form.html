@@ -53,21 +53,21 @@
     <!-- Input Field : re-password -->
     <div class="w-full mb-2">
       <div class="flex items-start flex-col">
-        <label for="repassword">Confirm Password</label>
+        <label for="rePassword">Confirm Password</label>
         <input
-          formControlName="repassword"
-          id="repassword"
+          formControlName="rePassword"
+          id="rePassword"
           type="password"
           placeholder="Passwords must match"
           class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
         />
         <!-- Error Message -->
-        @let repassword = signupFrom.get("repassword");
-        @if(signupFrom?.getError('passwordMissMatch') && repassword?.touched){
+        @let rePassword = signupFrom.get("rePassword");
+        @if(signupFrom.getError('passwordMissMatch') && rePassword?.touched){
         <app-error-message class="w-full">
-          @if(repassword?.getError("required")){
+          @if(rePassword?.getError("required")){
           <li>Confirm password is required.</li>
-          }@else { @if(signupFrom?.getError("passwordMissMatch")){
+          }@else { @if(signupFrom.getError("passwordMissMatch")){
           <li>Passwords must match</li>
           } } </app-error-message
         >}
@@ -88,9 +88,29 @@
     </div>
     <!-- Signup Button -->
     <button
-      class="w-full py-2 mt-8 rounded-full bg-secondary text-gray-100 focus:outline-none"
+      [disabled]="isLoading"
+      class="disabled:bg-gray-500 disabled:cursor-auto cursor-pointer w-full py-2 mt-8 rounded-full bg-secondary text-gray-100 focus:outline-none"
     >
-      Signup
+      Signup @if(isLoading){
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      }
     </button>
+
+    @if(errorMessage){
+    <div
+      class="mt-5 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+      role="alert"
+    >
+      <p>{{ errorMessage }}</p>
+    </div>
+    } @if(successMessage){
+
+    <div
+      class="mt-5 bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
+      role="alert"
+    >
+      <p>Register {{ successMessage }}</p>
+    </div>
+    }
   </div>
 </form>
