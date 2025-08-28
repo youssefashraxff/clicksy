@@ -1,1 +1,96 @@
-<p>signup-form works!</p>
+<form [formGroup]="signupFrom" (ngSubmit)="onSubmit()">
+  <div class="px-12 pb-10">
+    <!-- Input Field : Username -->
+    <div class="w-full mb-2">
+      <div class="flex items-start flex-col">
+        <label for="name">Username</label>
+        <input
+          formControlName="name"
+          formControlName="name"
+          id="name"
+          type="text"
+          placeholder="e.g. Youssef Ashraf"
+          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+        />
+        <!-- Error Message -->
+        @let username = signupFrom.get("name"); @if(username?.errors &&
+        username?.touched){
+        <app-error-message class="w-full">
+          @if(username?.getError("required")){
+          <li>Username is required.</li>
+          } @if(username?.getError("minlength")){
+          <li>At least 8 characters</li>
+          } </app-error-message
+        >}
+      </div>
+    </div>
+    <!-- Input Field : email -->
+    <div class="w-full mb-2">
+      <div class="flex items-start flex-col">
+        <label for="email">Email Address</label>
+        <input
+          formControlName="email"
+          id="email"
+          type="text"
+          placeholder="@example.com"
+          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+        />
+      </div>
+    </div>
+    <!-- Input Field : password -->
+    <div class="w-full mb-2">
+      <div class="flex items-start flex-col">
+        <label for="password">Password</label>
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder="8 characters at least"
+          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+        />
+      </div>
+    </div>
+    <!-- Input Field : re-password -->
+    <div class="w-full mb-2">
+      <div class="flex items-start flex-col">
+        <label for="repassword">Confirm Password</label>
+        <input
+          formControlName="repassword"
+          id="repassword"
+          type="password"
+          placeholder="Passwords must match"
+          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+        />
+        <!-- Error Message -->
+        @let repassword = signupFrom.get("repassword");
+        @if(signupFrom?.getError('passwordMissMatch') && repassword?.touched){
+        <app-error-message class="w-full">
+          @if(repassword?.getError("required")){
+          <li>Confirm password is required.</li>
+          }@else { @if(signupFrom?.getError("passwordMissMatch")){
+          <li>Passwords must match</li>
+          } } </app-error-message
+        >}
+      </div>
+    </div>
+    <!-- Input Field : phone number -->
+    <div class="w-full mb-2">
+      <div class="flex items-start flex-col">
+        <label for="phone">Phone Number</label>
+        <input
+          formControlName="phone"
+          id="phone"
+          type="text"
+          placeholder="(+201)"
+          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+        />
+      </div>
+    </div>
+    <!-- Signup Button -->
+    <button
+      class="w-full py-2 mt-8 rounded-full bg-secondary text-gray-100 focus:outline-none"
+    >
+      Signup
+    </button>
+  </div>
+</form>
