@@ -5,6 +5,11 @@ import { MainLayout } from './core/layouts/main-layout/main-layout';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'signin',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: AuthenticationLayout,
     loadChildren: () =>
       import('./features/authentication/authentication.routes').then(
