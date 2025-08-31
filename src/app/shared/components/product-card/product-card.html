@@ -1,0 +1,32 @@
+<div
+  class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
+>
+  <img
+    class="md:h-[350px] w-full object-cover object-center"
+    [src]="product.imageCover"
+    alt="blog"
+  />
+  <div class="p-6 flex flex-col justify-between flex-1">
+    <div>
+      <h2
+        class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
+      >
+        {{ product.category.name }}
+      </h2>
+      <h1
+        class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
+      >
+        {{ product.title }}
+      </h1>
+      <p class="leading-relaxed mb-3 font-light text-gray-400 line-clamp-2">
+        {{ product.description }}
+      </p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="!mt-0 btn-main flex-1">Add to cart</button>
+      <p class="text-lg font-medium">
+        <span class="text-xs">EGP </span>{{ product.price }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,7 @@ export class Categories implements OnInit {
   getAllCategories() {
     this.categoriesServices.getAllCategories().subscribe({
       next: (response) => {
-        // console.log(response);
+        console.log(response);
         this.allCategories = response.data;
         console.log(this.allCategories[0].image, 'image');
       },
