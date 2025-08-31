@@ -1,16 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProductsServices } from '../../services/products.services';
 import { ProductsData } from '../../interfaces/allProductsResponse';
+import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [LoadingSpinner],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
 export class Products implements OnInit {
   // Service Injection
-  productsServices = inject(ProductsServices);
+  private readonly productsServices = inject(ProductsServices);
 
   allProducts!: ProductsData[];
 

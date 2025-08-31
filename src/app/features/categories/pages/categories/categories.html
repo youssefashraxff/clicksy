@@ -1,1 +1,35 @@
-<p>categories works!</p>
+@if(!allCategories){
+<app-loading-spinner />
+}@else {
+<section class="my-4 px-4">
+  <header>
+    <h1 class="text-4xl text-main font-bold">Fresh Cart - All Categories</h1>
+  </header>
+  <hr class="my-4" />
+  <div class="grid md:grid-cols-3 gap-4">
+    @for(category of allCategories ; track category._id){
+
+    <div
+      class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
+    >
+      <img
+        class="md:h-[350px] w-full object-cover object-center"
+        [src]="category.image"
+        alt="blog"
+      />
+      <div class="p-6 flex flex-col justify-between flex-1">
+        <div>
+          <h1
+            class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
+          >
+            {{ category.name }}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    }
+  </div>
+</section>
+
+}
