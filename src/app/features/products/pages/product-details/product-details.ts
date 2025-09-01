@@ -1,35 +1,56 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProductsServices } from '../../services/products.services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SingleProduct } from '../../interfaces/singleProductResponse';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
+import { PopularProducts } from '../../../home/components/popular-products/popular-products';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [LoadingSpinner],
+  imports: [LoadingSpinner, PopularProducts],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
 export class ProductDetails implements OnInit {
-  productDetails!: SingleProduct;
+  productDetails!: SingleProduct | undefined;
   productID!: string;
+  page!: number;
   // Service Inject
-  private readonly productsService = inject(ProductsServices);
+  private readonly productsServices = inject(ProductsServices);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  // Get ID from routing
-
-  constructor() {
-    this.productID = this.activatedRoute.snapshot.params['productID'];
-  }
   ngOnInit(): void {
-    this.getSingleProduct();
-  }
-  getSingleProduct(): void {
-    this.productsService.getSingleProduct(this.productID).subscribe({
+    this.activatedRoute.queryParamMap.subscribe({
       next: (response) => {
-        this.productDetails = response.data;
+        console.log('Page number :', response.get('page'));
+        this.page = Number(response.get('page'));
       },
     });
+  }
+  // Get ID from routing
+  constructor() {
+    this.activatedRoute.paramMap.subscribe({
+      next: (response) => {
+        this.productID = response.get('productID') as string;
+        this.productDetails = undefined;
+        if (isPlatformBrowser(this.platformId)) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        this.getSingleProduct();
+      },
+    });
+  }
+
+  getSingleProduct(): void {
+    this.productsServices
+      .getSingleProduct(this.productID, { page: this.page })
+      .subscribe({
+        next: (response) => {
+          this.productDetails = response.data;
+        },
+      });
   }
 }

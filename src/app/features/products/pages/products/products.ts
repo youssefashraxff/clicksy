@@ -4,6 +4,7 @@ import { ProductsData } from '../../interfaces/allProductsResponse';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   imports: [LoadingSpinner, ProductCard, NgxPaginationModule],
@@ -13,11 +14,21 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class Products implements OnInit {
   // Service Injection
   private readonly productsServices = inject(ProductsServices);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   allProducts: ProductsData[] | undefined;
 
   page: number = 1;
   totalItems: number = 1;
+
+  // constructor() {
+  //   this.productsServices.getPageNumber(this.activatedRoute).subscribe({
+  //     next: (response) => {
+  //       this.page = Number(response.get('page'));
+  //     },
+  //   });
+  // }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -35,6 +46,7 @@ export class Products implements OnInit {
   onPageChange(page: number) {
     this.page = page;
     this.allProducts = undefined;
+    this.router.navigate([], { queryParams: { page: this.page } });
     this.getAllProducts();
   }
 }

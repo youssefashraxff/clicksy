@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ProductsServices } from '../../../products/services/products.services';
 import { ProductsData } from '../../../products/interfaces/allProductsResponse';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-popular-products',
@@ -14,11 +15,23 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class PopularProducts implements OnInit {
   // Service Injection
   private readonly productsServices = inject(ProductsServices);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   allProducts: ProductsData[] | undefined;
 
-  page: number = 1;
   totalItems: number = 1;
+  page!: number;
+
+  constructor() {
+    this.activatedRoute.queryParamMap.subscribe({
+      next: (response) => {
+        this.page = Number(response.get('page'));
+      },
+    });
+  }
+
+  // @Input() page!: number;
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -36,6 +49,7 @@ export class PopularProducts implements OnInit {
   onPageChange(page: number) {
     this.page = page;
     this.allProducts = undefined;
+    this.router.navigate([], { queryParams: { page: this.page } });
     this.getAllProducts();
   }
 }

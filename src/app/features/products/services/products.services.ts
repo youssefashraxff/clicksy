@@ -14,9 +14,11 @@ export class ProductsServices extends Basehttp {
     const params = new HttpParams().appendAll(filters || {});
     return this.get<allProductsResponse>(API_KEYS.productsKey, params);
   }
-  getSingleProduct(productId: string) {
+  getSingleProduct(productId: string, filters?: Params) {
+    const params = new HttpParams().appendAll(filters || {});
     return this.get<singleProductResponse>(
-      `${API_KEYS.productsKey}/${productId}`
+      `${API_KEYS.productsKey}/${productId}`,
+      params
     );
   }
 }
