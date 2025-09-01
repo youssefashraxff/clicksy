@@ -12,6 +12,8 @@ export class ProductsServices extends Basehttp {
     return this.get<allProductsResponse>(API_KEYS.productsKey);
   }
   getSingleProduct(productId: string) {
-    return this.get<singleProductResponse>(`${API_KEYS.productsKey}/productId`);
+    return this.get<singleProductResponse>(
+      `${API_KEYS.productsKey}/${productId}`
+    );
   }
 }

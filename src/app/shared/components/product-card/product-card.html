@@ -13,11 +13,12 @@
       >
         {{ product.category.name }}
       </h2>
-      <h1
+      <a
+        [routerLink]="['/details', product._id, product.slug]"
         class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
       >
         {{ product.title }}
-      </h1>
+      </a>
       <p class="leading-relaxed mb-3 font-light text-gray-400 line-clamp-2">
         {{ product.description }}
       </p>
