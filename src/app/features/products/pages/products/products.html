@@ -6,11 +6,17 @@
     <h1 class="text-4xl text-main font-bold">Fresh Cart - All Products</h1>
   </header>
   <hr class="my-4" />
-  <div class="grid md:grid-cols-3 gap-4">
-    @for(product of allProducts ; track product._id){
+  <div class="grid md:grid-cols-3 gap-4 lg:w-3/4 mx-auto">
+    @for(product of allProducts | paginate: { itemsPerPage: 10, currentPage:
+    page, totalItems: totalItems } ; track product._id){
     <app-product-card [product]="product"></app-product-card>
     }
   </div>
 </section>
+<div class="flex justify-center my-4">
+  <pagination-controls
+    (pageChange)="onPageChange($event)"
+  ></pagination-controls>
+</div>
 
 }
