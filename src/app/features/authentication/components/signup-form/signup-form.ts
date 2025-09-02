@@ -27,7 +27,10 @@ export class SignupForm implements OnInit {
   errorMessage!: string | undefined;
   successMessage!: string | undefined;
   isLoading: boolean = false;
-  timer: number = 5;
+  timer: number = 3;
+
+  isToggledPassword: boolean = false;
+  isToggledRePassword: boolean = false;
 
   ngOnInit(): void {
     this.signupFrom.setValue({
@@ -93,5 +96,12 @@ export class SignupForm implements OnInit {
   handleErrorResponse(error: HttpErrorResponse): void {
     this.errorMessage = error.error.message;
     this.isLoading = false;
+  }
+
+  togglePassword() {
+    this.isToggledPassword = !this.isToggledPassword;
+  }
+  toggleRePassword() {
+    this.isToggledRePassword = !this.isToggledRePassword;
   }
 }

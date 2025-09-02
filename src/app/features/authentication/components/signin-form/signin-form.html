@@ -1,8 +1,10 @@
 <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
   <div class="px-12 pb-10">
     <div class="w-full mb-2">
-      <div class="flex items-center">
+      <div class="flex items-start flex-col">
+        <label for="email">Email Address</label>
         <input
+          id="email"
           formControlName="email"
           type="text"
           placeholder="Email Address"
@@ -11,13 +13,22 @@
       </div>
     </div>
     <div class="w-full mb-2">
-      <div class="flex items-center">
-        <input
-          formControlName="password"
-          type="password"
-          placeholder="Password"
-          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
-        />
+      <div class="flex items-start flex-col">
+        <label for="password"> Password </label>
+        <div class="relative w-full">
+          <input
+            id="password"
+            formControlName="password"
+            [type]="isToggledPassword ? 'text' : 'password'"
+            placeholder="Enter your password"
+            class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+          />
+          <i
+            (click)="togglePassword()"
+            class="fa fa-solid absolute right-0 bottom-0 top-3 me-3 cursor-pointer flex justify-center items-center"
+            [class]="isToggledPassword ? 'fa-eye' : 'fa-eye-slash'"
+          ></i>
+        </div>
       </div>
     </div>
     <!-- Login Button -->

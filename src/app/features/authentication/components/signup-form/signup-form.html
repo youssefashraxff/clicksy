@@ -40,38 +40,52 @@
     <!-- Input Field : password -->
     <div class="w-full mb-2">
       <div class="flex items-start flex-col">
-        <label for="password">Password</label>
-        <input
-          formControlName="password"
-          id="password"
-          type="password"
-          placeholder="8 characters at least"
-          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
-        />
+        <label for="password"> Password </label>
+        <div class="relative w-full">
+          <input
+            id="password"
+            formControlName="password"
+            [type]="isToggledPassword ? 'text' : 'password'"
+            placeholder="Enter your password"
+            class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+          />
+          <i
+            (click)="togglePassword()"
+            class="fa fa-solid absolute right-0 bottom-0 top-3 me-3 cursor-pointer flex justify-center items-center"
+            [class]="isToggledPassword ? 'fa-eye' : 'fa-eye-slash'"
+          ></i>
+        </div>
       </div>
     </div>
     <!-- Input Field : re-password -->
     <div class="w-full mb-2">
       <div class="flex items-start flex-col">
-        <label for="rePassword">Confirm Password</label>
-        <input
-          formControlName="rePassword"
-          id="rePassword"
-          type="password"
-          placeholder="Passwords must match"
-          class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
-        />
-        <!-- Error Message -->
-        @let rePassword = signupFrom.get("rePassword");
-        @if(signupFrom.getError('passwordMissMatch') && rePassword?.touched){
-        <app-error-message class="w-full">
-          @if(rePassword?.getError("required")){
-          <li>Confirm password is required.</li>
-          }@else { @if(signupFrom.getError("passwordMissMatch")){
-          <li>Passwords must match</li>
-          } } </app-error-message
-        >}
+        <label for="rePassword"> Confirm Password </label>
+        <div class="relative w-full">
+          <input
+            id="rePassword"
+            formControlName="rePassword"
+            [type]="isToggledRePassword ? 'text' : 'password'"
+            placeholder="Passwords must match"
+            class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+          />
+          <i
+            (click)="toggleRePassword()"
+            class="fa fa-solid absolute right-0 bottom-0 top-3 me-3 cursor-pointer flex justify-center items-center"
+            [class]="isToggledRePassword ? 'fa-eye' : 'fa-eye-slash'"
+          ></i>
+        </div>
       </div>
+      <!-- Error Message -->
+      @let rePassword = signupFrom.get("rePassword");
+      @if(signupFrom.getError('passwordMissMatch') && rePassword?.touched){
+      <app-error-message class="w-full">
+        @if(rePassword?.getError("required")){
+        <li>Confirm password is required.</li>
+        }@else { @if(signupFrom.getError("passwordMissMatch")){
+        <li>Passwords must match</li>
+        } } </app-error-message
+      >}
     </div>
     <!-- Input Field : phone number -->
     <div class="w-full mb-2">

@@ -22,7 +22,9 @@ export class SigninForm implements OnInit {
   errorMessage!: string | undefined;
   successMessage!: string | undefined;
   isLoading: boolean = false;
-  timer: number = 5;
+  timer: number = 3;
+
+  isToggledPassword: boolean = false;
 
   // Injectables
   private readonly authServices = inject(AuthServices);
@@ -41,6 +43,7 @@ export class SigninForm implements OnInit {
   });
 
   onSubmit(): void {
+    // this.isToggledPassword = false;
     console.log('done');
     this.handleBeforeSubmit();
     if (this.signinForm.valid) {
@@ -77,5 +80,8 @@ export class SigninForm implements OnInit {
   handleErrorResponse(error: HttpErrorResponse): void {
     this.errorMessage = error.error.message;
     this.isLoading = false;
+  }
+  togglePassword() {
+    this.isToggledPassword = !this.isToggledPassword;
   }
 }
