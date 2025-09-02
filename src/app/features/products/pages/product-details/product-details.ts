@@ -5,10 +5,11 @@ import { SingleProduct } from '../../interfaces/singleProductResponse';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { PopularProducts } from '../../../home/components/popular-products/popular-products';
 import { isPlatformBrowser } from '@angular/common';
+import { CategoryProductsCarousel } from '../../components/category-products-carousel/category-products-carousel';
 
 @Component({
   selector: 'app-product-details',
-  imports: [LoadingSpinner, PopularProducts],
+  imports: [LoadingSpinner, PopularProducts, CategoryProductsCarousel],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })

@@ -57,7 +57,6 @@ export class CategoryProducts {
         next: (response) => {
           this.categoryProducts = response.data;
           this.totalItems = response.results;
-          console.log('respoo', response);
           this.router.navigate([], { queryParams: { page: this.page } });
         },
       });
