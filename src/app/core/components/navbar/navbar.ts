@@ -1,6 +1,7 @@
-import { Component, inject, Input } from '@angular/core';
+import { AfterViewInit, Component, inject, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthServices } from '../../../features/authentication/services/auth.services';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,12 @@ import { AuthServices } from '../../../features/authentication/services/auth.ser
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
 })
-export class Navbar {
+export class Navbar implements AfterViewInit {
   @Input() isLoggedIn = false;
   private readonly authenticationService = inject(AuthServices);
+  ngAfterViewInit() {
+    initFlowbite(); // rebinds Flowbite listeners
+  }
   onSignout() {
     this.authenticationService.onSignout();
   }
