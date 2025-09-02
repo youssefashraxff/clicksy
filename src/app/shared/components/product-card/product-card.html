@@ -1,12 +1,12 @@
 <div
-  class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
+  class="h-full border-1 border-gray-100 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
 >
   <img
     class="md:h-[350px] w-full object-cover object-center"
     [src]="product.imageCover"
     alt="blog"
   />
-  <div class="p-6 flex flex-col justify-between flex-1">
+  <div class="p-6 flex flex-col justify-between flex-1 bg-white">
     <div>
       <h2
         class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
@@ -24,11 +24,20 @@
         {{ product.description }}
       </p>
     </div>
-    <div class="flex items-center gap-3">
-      <button class="!mt-0 btn-main flex-1">Add to cart</button>
-      <p class="text-lg font-medium">
-        <span class="text-xs">EGP </span>{{ product.price }}
+    <div class="flex items-center justify-between gap-3">
+      <p class="text-lg font-medium text-secondary">
+        {{ product.price }}<span> EGP </span>
       </p>
+      <div class="card-icons flex justify-center items-center gap-2">
+        <i
+          title="Add to Cart"
+          class="fa fa-solid fa-cart-shopping btn-main-circled text-xs"
+        ></i>
+        <i
+          title="Add to Wishlist"
+          class="fa fa-solid fa-heart btn-main-circled text-xs"
+        ></i>
+      </div>
     </div>
   </div>
 </div>

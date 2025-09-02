@@ -2,4 +2,5 @@
   --color-main: var(--main-color);
   --color-secondary: var(--secondary-color);
   --color-secondary-muted: var(--secondary-color-muted);
+  --color-light: var(--light-color);
 }
