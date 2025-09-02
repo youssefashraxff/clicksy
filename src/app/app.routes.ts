@@ -55,6 +55,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'details/:categoryID',
+        loadComponent: () =>
+          import(
+            './features/products/pages/category-products/category-products'
+          ).then((module) => module.CategoryProducts),
+      },
+
+      {
         path: 'brands',
         loadChildren: () =>
           import('./features/brands/brands.routes').then(

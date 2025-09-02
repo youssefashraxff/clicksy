@@ -31,9 +31,6 @@ export class PopularProducts implements OnInit {
       },
     });
   }
-
-  // @Input() page!: number;
-
   ngOnInit(): void {
     this.getAllProducts();
   }

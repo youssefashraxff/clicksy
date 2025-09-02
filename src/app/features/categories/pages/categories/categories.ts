@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CategriesServices } from '../../services/categries.services';
 import { CategoriesData } from '../../interfaces/allCategoriesResponse';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
-  imports: [LoadingSpinner],
+  imports: [LoadingSpinner, RouterLink],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })

@@ -33,13 +33,13 @@ export class SignupForm implements OnInit {
   isToggledRePassword: boolean = false;
 
   ngOnInit(): void {
-    this.signupFrom.setValue({
-      name: 'Youssef Ashraf',
-      email: 'youssefashraf123@gmail.com',
-      password: 'Youssef@123',
-      rePassword: 'Youssef@123',
-      phone: '01021324764',
-    });
+    // this.signupFrom.setValue({
+    //   name: 'Youssef Ashraf',
+    //   email: 'youssefashraf123@gmail.com',
+    //   password: 'Youssef@123',
+    //   rePassword: 'Youssef@123',
+    //   phone: '01021324764',
+    // });
   }
 
   signupFrom = new FormGroup(

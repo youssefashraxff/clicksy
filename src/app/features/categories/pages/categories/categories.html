@@ -19,11 +19,12 @@
       />
       <div class="p-6 flex flex-col justify-between flex-1">
         <div>
-          <h1
+          <a
+            [routerLink]="['/details', category._id]"
             class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
           >
             {{ category.name }}
-          </h1>
+          </a>
         </div>
       </div>
     </div>

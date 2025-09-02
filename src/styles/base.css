@@ -1,5 +1,5 @@
 .btn-main {
-  @apply cursor-pointer w-full py-2 mt-8 rounded-md bg-main text-gray-100 focus:outline-none;
+  @apply cursor-pointer px-3 lg:px-9 w-full py-2 mt-8 rounded-md bg-main text-gray-100 focus:outline-none;
 }
 .btn-main-circled {
   @apply flex justify-center items-center cursor-pointer w-8 h-8 p-3 rounded-full bg-main text-gray-100 focus:outline-none hover:bg-secondary duration-200;
@@ -10,6 +10,10 @@
 }
 .auth-nav-btn {
   @apply block py-2 px-3 text-white font-light bg-main rounded-sm hover:bg-gray-700 duration-200;
+}
+
+.products-grid {
+  @apply grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:w-4/5 mx-auto;
 }
 
 .ngx-pagination .current {
