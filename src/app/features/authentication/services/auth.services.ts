@@ -15,4 +15,7 @@ export class AuthServices extends Basehttp {
   loginUser(userDate: Object): Observable<registerUserResponse> {
     return this.http.post<registerUserResponse>(API_KEYS.loginKey, userDate);
   }
+  onSignout() {
+    localStorage.clear();
+  }
 }

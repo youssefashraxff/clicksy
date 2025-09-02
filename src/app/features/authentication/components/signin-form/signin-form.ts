@@ -71,6 +71,7 @@ export class SigninForm implements OnInit {
   }
   handleSuccessResponse(response: any): void {
     console.log(response);
+    localStorage.setItem('token', response.token);
     this.signinForm.reset();
     this.successMessage = response.message;
     this.isLoading = false;

@@ -107,6 +107,7 @@
 
     @if(isLoggedIn){
     <a
+      (click)="onSignout()"
       routerLink="signin"
       routerLinkActive=""
       class="auth-nav-btn"
