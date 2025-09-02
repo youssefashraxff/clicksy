@@ -4,6 +4,7 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  FormBuilder,
 } from '@angular/forms';
 import { ErrorMessage } from '../error-message/error-message';
 import { AuthServices } from '../../services/auth.services';
@@ -26,9 +27,12 @@ export class SigninForm implements OnInit {
 
   isToggledPassword: boolean = false;
 
+  signinForm: FormGroup;
+
   // Injectables
   private readonly authServices = inject(AuthServices);
   private readonly router = inject(Router);
+  private readonly formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
     this.signinForm.setValue({
@@ -36,12 +40,14 @@ export class SigninForm implements OnInit {
       password: 'Ya@12345',
     });
   }
-
-  signinForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  });
-
+  // Initializing Sign-in Form usin Form  Builder
+  constructor() {
+    this.signinForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
+  // On submit method
   onSubmit(): void {
     // this.isToggledPassword = false;
     console.log('done');

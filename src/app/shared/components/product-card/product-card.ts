@@ -10,4 +10,5 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductCard {
   @Input() product!: ProductsData;
+  @Input() page!: number;
 }

@@ -21,12 +21,13 @@ export class PopularProducts implements OnInit {
   allProducts: ProductsData[] | undefined;
 
   totalItems: number = 1;
-  page!: number;
+  @Input() page!: number;
 
   constructor() {
     this.activatedRoute.queryParamMap.subscribe({
       next: (response) => {
         this.page = Number(response.get('page'));
+        console.log('pageeeee', this.page);
       },
     });
   }

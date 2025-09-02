@@ -15,6 +15,7 @@
       </h2>
       <a
         [routerLink]="['/details', product._id, product.slug]"
+        [queryParams]="{ page: page }"
         class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
       >
         {{ product.title }}

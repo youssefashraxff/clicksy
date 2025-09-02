@@ -50,6 +50,7 @@ export class ProductDetails implements OnInit {
       .subscribe({
         next: (response) => {
           this.productDetails = response.data;
+          this.router.navigate([], { queryParams: { page: this.page } });
         },
       });
   }
