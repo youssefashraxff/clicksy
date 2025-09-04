@@ -2,33 +2,51 @@
 <app-loading-spinner />
 }@else{
 
-<section class="text-gray-600 body-font overflow-hidden lg:w-4/5 mx-auto">
-  <div class="container px-5 py-24 mx-auto">
+<section class="text-gray-600 body-font lg:w-4/5 mx-auto">
+  <div class="container px-5 pt-10 mx-auto">
     <div class="grid grid-cols-5 gap-5">
-      <div class="col-span-5 md:col-span-2 grid gap-4">
-        <div>
-          <img
-            #mainImg
-            class="w-full h-full rounded-lg hover"
-            [src]="productDetails.imageCover"
-            alt=""
-          />
-        </div>
-        <div class="grid grid-cols-4 gap-4">
-          @for(image of productDetails.images;track $index){
-          <div class="relative rounded-lg overflow-hidden group">
-            <img #secImg class="h-auto max-w-full" [src]="image" alt="" />
-            <div
-              (click)="mainImg.src = secImg.src"
-              class="bg-gray-500 absolute inset-0 opacity-0 group-hover:opacity-40 duration-300"
-            ></div>
+      <!-- Image Details -->
+      <div class="col-span-5 lg:col-span-2 gap-4">
+        <div
+          class="flex flex-col justify-between md:justify-start items-center gap-5"
+        >
+          <div class="flex-1 h-[300px] md:h-[500px] overflow-hidden">
+            <img
+              #mainImg
+              class="h-full mx-auto object-cover object-center scale-105 rounded-lg"
+              [src]="productDetails.imageCover"
+              alt=""
+            />
           </div>
+          @if(productDetails.images){
+          <div class="w-full overflow-hidden">
+            <owl-carousel-o [options]="customOptions">
+              @for (image of productDetails.images; track $index) {
+              <ng-template carouselSlide [id]="image">
+                <div class="relative rounded-lg overflow-hidden group px-2">
+                  <img
+                    #secImg
+                    class="w-full h-full mx-auto object-cover object-center scale-110"
+                    [src]="image"
+                    alt=""
+                  />
+                  <div
+                    (click)="mainImg.src = secImg.src"
+                    class="bg-gray-500 absolute inset-0 opacity-0 group-hover:opacity-40 duration-300"
+                  ></div>
+                </div>
+              </ng-template>
+              }
+            </owl-carousel-o>
+          </div>
+          } @else {
+          <app-loading-spinner />
           }
         </div>
       </div>
-
+      <!-- Details -->
       <div
-        class="col-span-5 md:col-span-3 mt-6 lg:mt-0 md:border-s-1 sm:border-s-0 md:ps-10"
+        class="col-span-5 lg:col-span-3 lg:mt-0 lg:border-s-1 border-s-0 md:ps-6"
       >
         <h2 class="text-md title-font text-gray-500 tracking-widest">
           {{ productDetails.brand.name }}
@@ -50,7 +68,6 @@
         <p class="leading-relaxed">
           {{ productDetails.description }}
         </p>
-        <!-- <hr class="my-5" /> -->
         <!-- Price, add to cart and wishlist -->
         <div class="flex justify-between gap-4 mt-5">
           <p

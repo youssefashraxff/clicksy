@@ -2,7 +2,7 @@
   <hr class="mb-4" />
   <h2 class="text-main font-bold text-2xl">Related Products</h2>
 </header>
-<div class="flex justify-center w-full items-center">
+<div class="flex justify-center items-center">
   @if(!categoryProducts){
   <app-loading-spinner></app-loading-spinner>
   }@else {
@@ -11,7 +11,10 @@
       @for (product of categoryProducts; track product._id) {
       <ng-template carouselSlide [id]="product._id">
         <div class="px-1">
-          <app-small-product-card [product]="product"></app-small-product-card>
+          <app-product-card
+            [product]="product"
+            [isInCarousel]="true"
+          ></app-product-card>
         </div>
       </ng-template>
       }

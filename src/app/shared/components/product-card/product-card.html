@@ -1,55 +1,70 @@
 <div
-  class="h-full border-1 border-gray-100 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
+  class="h-full border-1 border-gray-100 border-opacity-60 overflow-hidden flex flex-col"
 >
-  <div class="h-[400px]">
+  <!-- Card Image -->
+  <div class="relative overflow-hidden">
     <img
-      class="h-full w-full mx-auto object-cover object-center"
+      [routerLink]="['/details', product._id, product.slug]"
+      [queryParams]="{ page: page }"
+      [ngClass]="
+        isInCarousel ? 'md:h-[200px] scale-125 hover:scale-130' : 'md:h-[250px]'
+      "
+      class="h-full mx-auto object-contain hover:scale-105 duration-200"
       [src]="product.imageCover"
       alt="blog"
     />
+    <i
+      title="Add to Wishlist"
+      class="absolute bottom-0 end-0 mb-2 me-3 xl:me-3 fa fa-solid fa-heart btn-main-circled wishlist-btn text-xs md:text-lg"
+    ></i>
   </div>
-  <div class="p-6 flex flex-col justify-between flex-1 bg-white">
-    <div class="flex justify-between items-center">
+  <!-- Card Details -->
+  <div
+    [ngClass]="isInCarousel ? 'md:px-6' : 'md:p-6'"
+    class="p-0 mt-3 mb-5 md:mt-0 md:mb-0 flex flex-col justify-between flex-1"
+  >
+    <div>
       <div>
         <h2
-          class="tracking-widest text-xs title-font font-normal text-gray-400 mb-1"
+          class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
         >
           {{ product.category.name }}
         </h2>
-        <a
-          [routerLink]="['/details', product._id, product.slug]"
-          [queryParams]="{ page: page }"
-          class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
-        >
-          {{ product.title }}
-        </a>
-      </div>
-      <div class="flex justify-center items-center gap-2">
-        <p>
-          {{ product.ratingsAverage }}
-        </p>
-        <i class="fa-solid fa-star text-yellow-300"></i>
+        <div class="flex justify-between items-center">
+          <a
+            [routerLink]="['/details', product._id, product.slug]"
+            [queryParams]="{ page: page }"
+            [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
+            class="title-font md:text-lg font-medium text-gray-900 line-clamp-1"
+          >
+            {{ product.title }}
+          </a>
+          <div
+            class="flex justify-center items-center gap-2 text-xs md:text-md"
+          >
+            <p>
+              {{ product.ratingsAverage }}
+            </p>
+            <i class="fa-solid fa-star text-yellow-300"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div>
       <p
-        class="md:text-md text-xs leading-relaxed mb-3 font-light text-gray-400 line-clamp-2"
+        class="text-xs md:text-md leading-relaxed mb-3 font-light text-gray-400 line-clamp-2"
       >
         {{ product.description }}
       </p>
     </div>
     <div class="flex items-center justify-between gap-3">
-      <p class="md:text-xl text-md font-semibold text-main">
+      <p class="md:text-xl text-sm font-semibold text-main">
         {{ product.price.toLocaleString() }}<span>.00 EGP </span>
       </p>
       <div class="card-icons flex justify-center items-center gap-2">
         <i
           title="Add to Cart"
-          class="fa fa-solid fa-cart-shopping btn-main-circled text-xs"
-        ></i>
-        <i
-          title="Add to Wishlist"
-          class="fa fa-solid fa-heart btn-main-circled text-xs"
+          class="fa fa-solid fa-cart-shopping btn-main-circled cart-btn text-xs"
         ></i>
       </div>
     </div>

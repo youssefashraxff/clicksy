@@ -10,22 +10,22 @@
     @for(category of allCategories ; track category._id){
 
     <div
-      class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
+      class="relative h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
     >
       <img
         class="md:h-[350px] w-full object-cover object-center"
         [src]="category.image"
         alt="blog"
       />
-      <div class="p-6 flex flex-col justify-between flex-1">
-        <div>
-          <a
-            [routerLink]="['/details', category._id]"
-            class="title-font text-lg font-medium text-gray-900 mb-3 line-clamp-1"
-          >
-            {{ category.name }}
-          </a>
-        </div>
+      <div
+        class="p-6 flex flex-col justify-between flex-1 absolute bottom-0 bg-white/30 backdrop-blur-md start-0 end-0 border-t border-white/40"
+      >
+        <a
+          [routerLink]="['/details', category._id]"
+          class="title-font text-center italic text-3xl uppercase font-extrabold text-main mb-3 line-clamp-1"
+        >
+          {{ category.name }}
+        </a>
       </div>
     </div>
 
