@@ -3,6 +3,7 @@ import { ProductsData } from '../../../features/products/interfaces/allProductsR
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { CartService } from '../../../features/cart/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,9 @@ export class ProductCard {
   @Input() page!: number;
   @Input() isInCarousel!: boolean;
 
+  // Services
   private readonly cartService = inject(CartService);
+  private readonly toastrService = inject(ToastrService);
 
   // Variables
 
@@ -25,11 +28,8 @@ export class ProductCard {
     this.isLoading = true;
     this.cartService.addItemToCart(productId).subscribe({
       next: (response) => {
-        console.log('Item added to cart successfully:', response);
         this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Error adding item to cart:', error);
+        this.toastrService.success(response.message);
       },
     });
   }
