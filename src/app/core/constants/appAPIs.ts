@@ -5,4 +5,5 @@ export const API_KEYS = {
   loginKey: `${environments.API_URL}auth/signin`,
   productsKey: `${environments.API_URL}products`,
   categoriesKey: `${environments.API_URL}categories`,
+  cartKey: `${environments.API_URL}cart`,
 };

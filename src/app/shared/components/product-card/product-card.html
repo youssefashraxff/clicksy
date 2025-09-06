@@ -61,11 +61,17 @@
       <p class="md:text-xl text-sm font-semibold text-main">
         {{ product.price.toLocaleString() }}<span>.00 EGP </span>
       </p>
+      <!-- Add to cart Btn -->
       <div class="card-icons flex justify-center items-center gap-2">
+        @if(isLoading){
+        <i class="fas fa-spinner fa-spin btn-main-circled cart-btn text-xs"></i>
+        } @else {
         <i
+          (click)="addToCart(product._id)"
           title="Add to Cart"
           class="fa fa-solid fa-cart-shopping btn-main-circled cart-btn text-xs"
         ></i>
+        }
       </div>
     </div>
   </div>

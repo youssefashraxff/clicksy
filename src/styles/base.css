@@ -7,6 +7,9 @@
 .cart-btn {
   @apply bg-white text-secondary hover:text-white hover:bg-secondary duration-200;
 }
+.cart-btn-added {
+  @apply bg-secondary text-white hover:text-white hover:bg-secondary duration-200;
+}
 .wishlist-btn {
   @apply bg-gray-300/30 backdrop-blur-md text-white  hover:text-red-600 duration-200;
 }
