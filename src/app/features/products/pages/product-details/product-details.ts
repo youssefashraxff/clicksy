@@ -6,10 +6,16 @@ import { LoadingSpinner } from '../../../../shared/components/loading-spinner/lo
 import { PopularProducts } from '../../../home/components/popular-products/popular-products';
 import { isPlatformBrowser } from '@angular/common';
 import { CategoryProductsCarousel } from '../../components/category-products-carousel/category-products-carousel';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-product-details',
-  imports: [LoadingSpinner, PopularProducts, CategoryProductsCarousel],
+  imports: [
+    LoadingSpinner,
+    PopularProducts,
+    CategoryProductsCarousel,
+    CarouselModule,
+  ],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
@@ -22,6 +28,23 @@ export class ProductDetails implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
+
+  // Carousel Options
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navText: ['', ''],
+    responsive: {
+      0: { items: 4 },
+      400: { items: 3 },
+      740: { items: 3 },
+      940: { items: 3 },
+    },
+    nav: true,
+  };
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe({
