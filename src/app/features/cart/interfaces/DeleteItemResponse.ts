@@ -1,5 +1,3 @@
-import { Cart } from '../pages/cart/cart';
-
 export interface Subcategory {
   _id: string;
   name: string;
@@ -33,7 +31,7 @@ export interface Product {
   id: string;
 }
 
-export interface CartItems {
+export interface CartItemsD {
   count: number;
   _id: string;
   product: Product;
@@ -43,14 +41,14 @@ export interface CartItems {
 export interface CartData {
   _id: string;
   cartOwner: string;
-  products: CartItems[];
+  products: CartItemsD[];
   createdAt: string;
   updatedAt: string;
   __v: number;
   totalCartPrice: number;
 }
 
-export interface GetCartResponse {
+export interface DeleteItemResponse {
   status: string;
   numOfCartItems: number;
   cartId: string;

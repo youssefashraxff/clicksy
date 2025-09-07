@@ -1,14 +1,14 @@
-export interface Product {
+export interface CartItems {
   count: number;
   _id: string;
   product: string;
   price: number;
 }
 
-export interface Data {
+export interface CartData {
   _id: string;
   cartOwner: string;
-  products: Product[];
+  products: CartItems[];
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -20,5 +20,5 @@ export interface AddCartResponse {
   message: string;
   numOfCartItems: number;
   cartId: string;
-  data: Data;
+  data: CartData;
 }

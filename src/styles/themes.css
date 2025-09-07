@@ -1,6 +1,8 @@
 @theme {
   --color-main: var(--main-color);
   --color-secondary: var(--secondary-color);
+  --color-yellow: var(--yellow-color);
   --color-secondary-muted: var(--secondary-color-muted);
   --color-light: var(--light-color);
+  --text-xxs: 0.7rem;
 }

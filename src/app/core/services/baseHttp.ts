@@ -19,7 +19,11 @@ export abstract class Basehttp {
     return this.http.put<T>(url, { params: params, headers: headers });
   }
   // Delete
-  protected delete<T>(url: string, headers?: {}): Observable<T> {
+  protected delete<T>(
+    url: string,
+    params?: Params,
+    headers?: {}
+  ): Observable<T> {
     return this.http.delete<T>(url, { headers: headers });
   }
 }

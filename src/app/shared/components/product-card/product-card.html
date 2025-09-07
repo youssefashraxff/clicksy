@@ -2,26 +2,28 @@
   class="h-full border-1 border-gray-100 border-opacity-60 overflow-hidden flex flex-col"
 >
   <!-- Card Image -->
-  <div class="relative overflow-hidden">
+  <div class="relative overflow-hidden w-full">
     <img
       [routerLink]="['/details', product._id, product.slug]"
       [queryParams]="{ page: page }"
-      [ngClass]="
-        isInCarousel ? 'md:h-[200px] scale-125 hover:scale-130' : 'md:h-[250px]'
-      "
-      class="h-full mx-auto object-contain hover:scale-105 duration-200"
+      class="h-full w-full object-contain hover:scale-105 duration-500 cursor-pointer"
+      [ngClass]="isInCarousel ? 'md:h-[200px] scale-125 hover:scale-130' : ''"
       [src]="product.imageCover"
       alt="blog"
     />
-    <i
-      title="Add to Wishlist"
-      class="absolute bottom-0 end-0 mb-2 me-3 xl:me-3 fa fa-solid fa-heart btn-main-circled wishlist-btn text-xs md:text-lg"
-    ></i>
+    <!-- Add to wishlist -->
+    <div>
+      <i
+        (click)="addToWishList(product._id)"
+        title="Add to Wishlist"
+        class="absolute top-0 end-0 mt-2 me-2 fas fa-heart btn-main-circled text-xs md:text-lg mb-2"
+        [ngClass]="isAddedToWishList ? 'added-wishlist-btn' : 'wishlist-btn'"
+      ></i>
+    </div>
   </div>
   <!-- Card Details -->
   <div
-    [ngClass]="isInCarousel ? 'md:px-6' : 'md:p-6'"
-    class="p-0 mt-3 mb-5 md:mt-0 md:mb-0 flex flex-col justify-between flex-1"
+    class="w-full p-0 !mt-3 mb-5 md:mt-0 md:mb-0 flex flex-col justify-between flex-1"
   >
     <div>
       <div>
@@ -35,44 +37,93 @@
             [routerLink]="['/details', product._id, product.slug]"
             [queryParams]="{ page: page }"
             [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
-            class="title-font md:text-lg font-medium text-gray-900 line-clamp-1"
+            class="title-font md:text-lg font-semibold text-gray-900 line-clamp-1"
           >
             {{ product.title }}
           </a>
           <div
-            class="flex justify-center items-center gap-2 text-xs md:text-md"
+            class="flex justify-center items-center gap-2 text-sm md:text-md"
           >
             <p>
               {{ product.ratingsAverage }}
             </p>
-            <i class="fa-solid fa-star text-yellow-300"></i>
+            <i class="fa-solid fa-star text-orange-300"></i>
           </div>
         </div>
       </div>
     </div>
     <div>
       <p
-        class="text-xs md:text-md leading-relaxed mb-3 font-light text-gray-400 line-clamp-2"
+        class="text-xs md:text-md leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
       >
         {{ product.description }}
       </p>
     </div>
-    <div class="flex items-center justify-between gap-3">
-      <p class="md:text-xl text-sm font-semibold text-main">
-        {{ product.price.toLocaleString() }}<span>.00 EGP </span>
+    <!-- Discount Details -->
+    <div class="text-xxs md:text-sm flex justify-start items-center">
+      @if((product.priceAfterDiscount) &&
+      !(product.priceAfterDiscount===product.price)){
+      <p class="line-through text-gray-400">
+        {{ product.price | currency : " EGP " }}
       </p>
+      <p class="text-green-500 font-light ms-1">
+        {{
+          (
+            ((product.price - product.priceAfterDiscount) / product.price) *
+            100
+          ).toFixed()
+        }}
+        % OFF
+      </p>
+      }
+    </div>
+    <!-- Price and Add to Cart -->
+    <div class="flex items-end justify-between gap-3">
+      <div class="">
+        <p class="md:text-xl text-md font-bold text-main">
+          @if(product.priceAfterDiscount){
+          {{ product.priceAfterDiscount | currency : " EGP " }}
+          } @else {
+          {{ product.price | currency : " EGP " }}
+          }
+        </p>
+      </div>
       <!-- Add to cart Btn -->
-      <div class="card-icons flex justify-center items-center gap-2">
+      @if(!isAddedToCart){
+      <div>
         @if(isLoading){
         <i class="fas fa-spinner fa-spin btn-main-circled cart-btn text-xs"></i>
         } @else {
         <i
           (click)="addToCart(product._id)"
           title="Add to Cart"
-          class="fa fa-solid fa-cart-shopping btn-main-circled cart-btn text-xs"
+          class="fas fa-cart-shopping btn-main-circled cart-btn text-sm"
         ></i>
         }
       </div>
+      } @else {
+      <!-- Added quantity -->
+      <div class="hidden md:block">
+        <div class="flex justify-end">
+          <div
+            class="flex justify-between items-center gap-5 cart-btn px-2 py-1 w-full rounded-full text-xs"
+          >
+            <i
+              class="fas fa-minus cursor-pointer"
+              (click)="decreaseQty(product._id)"
+            ></i>
+            @if(isLoading){
+            <i class="fas fa-spinner fa-spin text-sm py-0.5"></i>}@else {
+            <p>{{ quantity }}</p>
+            }
+            <i
+              class="fas fa-plus cursor-pointer"
+              (click)="increaseQty(product._id)"
+            ></i>
+          </div>
+        </div>
+      </div>
+      }
     </div>
   </div>
 </div>

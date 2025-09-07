@@ -5,13 +5,16 @@
   @apply flex justify-center items-center cursor-pointer w-8 h-8 md:p-2 rounded-full focus:outline-none;
 }
 .cart-btn {
-  @apply bg-white text-secondary hover:text-white hover:bg-secondary duration-200;
+  @apply border-gray-300 bg-gray-300/30 backdrop-blur-md text-yellow  hover:text-yellow/50 duration-200;
+  border: solid 0.5px;
 }
-.cart-btn-added {
-  @apply bg-secondary text-white hover:text-white hover:bg-secondary duration-200;
+.added-wishlist-btn {
+  @apply border-gray-300 bg-gray-300/30 backdrop-blur-md text-red-500  hover:text-white duration-200;
+  border: solid 0.5px;
 }
 .wishlist-btn {
-  @apply bg-gray-300/30 backdrop-blur-md text-white  hover:text-red-600 duration-200;
+  @apply border-gray-300 bg-gray-300/30 backdrop-blur-md text-white  hover:text-red-500 duration-200;
+  border: solid 0.5px;
 }
 .nav-item {
   @apply block text-main text-sm font-light md:my-0 my-1;
@@ -23,9 +26,8 @@
   @apply px-2 py-2  text-sm font-light text-main rounded-lg hover:bg-main hover:text-white duration-200;
 }
 .products-grid {
-  @apply grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 mx-auto;
+  @apply grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5 md:gap-10 mx-auto md:px-15 lg:px-25 mb-10;
 }
-
 .ngx-pagination .current {
   background: var(--color-main) !important;
   color: white !important;

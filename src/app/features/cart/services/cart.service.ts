@@ -3,6 +3,7 @@ import { Basehttp } from '../../../core/services/baseHttp';
 import { API_KEYS } from '../../../core/constants/appAPIs';
 import { AddCartResponse } from '../interfaces/AddCartResponse.interface';
 import { GetCartResponse } from '../interfaces/GetCartResponse.interface';
+import { CartData, DeleteItemResponse } from '../interfaces/DeleteItemResponse';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -31,8 +32,14 @@ export class CartService extends Basehttp {
   }
 
   // Delete
-  removeItemFromCart(itemId: string): void {
-    // Implementation for removing item from cart
+  removeItemFromCart(itemId: string): Observable<DeleteItemResponse> {
+    return this.delete<DeleteItemResponse>(
+      `${API_KEYS.cartKey}/${itemId}`,
+      undefined,
+      {
+        token: localStorage.getItem('token'),
+      }
+    );
   }
 
   // Additional method to clear the cart
