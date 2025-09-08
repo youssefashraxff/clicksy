@@ -48,6 +48,13 @@ export const routes: Routes = [
           ).then((module) => module.ProductDetails),
       },
       {
+        path: 'details/:productID',
+        loadComponent: () =>
+          import(
+            './features/products/pages/product-details/product-details'
+          ).then((module) => module.ProductDetails),
+      },
+      {
         path: 'categories',
         loadChildren: () =>
           import('./features/categories/categories.routes').then(

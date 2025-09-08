@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,15 +15,15 @@ export abstract class Basehttp {
     return this.http.get<T>(url, { params: params, headers: headers });
   }
   // Put
-  protected put<T>(url: string, params?: Params, headers?: {}): Observable<T> {
-    return this.http.put<T>(url, { params: params, headers: headers });
+  protected put<T>(
+    url: string,
+    body?: any,
+    options?: { params?: Params; headers?: HttpHeaders }
+  ): Observable<T> {
+    return this.http.put<T>(url, body, options);
   }
   // Delete
-  protected delete<T>(
-    url: string,
-    params?: Params,
-    headers?: {}
-  ): Observable<T> {
+  protected delete<T>(url: string, headers?: {}): Observable<T> {
     return this.http.delete<T>(url, { headers: headers });
   }
 }

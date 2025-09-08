@@ -42,7 +42,7 @@
             {{ product.title }}
           </a>
           <div
-            class="flex justify-center items-center gap-2 text-sm md:text-md"
+            class="flex justify-center items-center gap-2 text-sm md:text-base"
           >
             <p>
               {{ product.ratingsAverage }}
@@ -54,7 +54,7 @@
     </div>
     <div>
       <p
-        class="text-xs md:text-md leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
+        class="text-xs md:text-base leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
       >
         {{ product.description }}
       </p>
@@ -80,7 +80,7 @@
     <!-- Price and Add to Cart -->
     <div class="flex items-end justify-between gap-3">
       <div class="">
-        <p class="md:text-xl text-md font-bold text-main">
+        <p class="md:text-xl text-base font-bold text-main">
           @if(product.priceAfterDiscount){
           {{ product.priceAfterDiscount | currency : " EGP " }}
           } @else {

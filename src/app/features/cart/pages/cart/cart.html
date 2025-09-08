@@ -1,97 +1,149 @@
-<section class="mt-35 px-5 md:px-20">
+@if(!cartItems){
+<div class="flex flex-col justify-center items-center mt-40">
+  <img class="md:w-1/4 w-1/2" src="/errors/emptycart.png" alt="" />
+  <p class="text-2xl font-extrabold">
+    Your cart is <span class="text-red-600">Empty!</span>
+  </p>
+  <a
+    routerLink="/home"
+    class="mt-10 cursor-pointer text-main text-sm font-light"
+    >Return to home page</a
+  >
+</div>
+
+}@else {
+<section class="mt-35 px-5 md:px-20 md:mx-auto">
   <header>
     <p class="text-3xl font-extrabold text-main mb-5">Shopping Cart</p>
   </header>
-
-  <div class="md:flex justify-center items-center gap-10 relative">
+  <button
+    (click)="removeCart()"
+    class="flex justify-center items-center text-red-600 gap-2 mb-5 cursor-pointer"
+  >
+    <i class="fas fa-x text-xs"></i>
+    <p class="font-extralight">Remove all items</p>
+  </button>
+  <div class="md:flex justify-center items-start gap-10 relative">
     <!-- Cart -->
     <div class="md:w-2/3 w-full">
-      @for(item of cartItems.products ;track item._id){
+      @for(item of cartProducts ;track item._id){
       <!-- Cart Item -->
       <div
-        class="grid grid-cols-12 gap-5 border-1 border-gray-300 rounded-4xl overflow-hidden mb-5"
+        class="relative grid md:grid-cols-5 grid-cols-7 border-1 border-gray-300 rounded-xl overflow-hidden mb-5"
       >
         <!-- Item Image -->
-        <div class="md:col-span-3 col-span-4 md:h-[200px] h-[150px]">
+        <div class="md:col-span-1 col-span-2 md:h-[200px] h-[150px]">
           <img
             class="object-cover h-full object-center"
             [src]="item.product.imageCover"
             alt=""
           />
         </div>
+        <!-- Item Details -->
         <div
-          class="md:col-span-9 col-span-8 flex flex-col justify-center items-center pe-3"
+          class="md:col-span-4 col-span-5 flex md:flex-row flex-col md:justify-between justify-evenly md:items-center items-start px-5"
         >
-          <div class="grid grid-cols-10 md:gap-6 gap-3">
-            <!-- Title and catergory -->
-            <div
-              class="md:col-span-5 col-span-10 flex flex-col justify-center items-start"
+          <!-- Title and catergory -->
+          <div class="flex flex-col justify-center items-start w-full">
+            <p class="text-xxs md:text-xs text-gray-400 w-full">
+              {{ item.product.category.name }}
+            </p>
+            <p
+              [routerLink]="['/details', item.product.id]"
+              class="text-xs md:text-base font-normal text-gray-900 line-clamp-2 cursor-pointer"
             >
-              <p class="text-xxs md:text-lg text-gray-400">
-                {{ item.product.category.name }}
-              </p>
-              <p
-                class="text-xs md:text-lg font-semibold text-gray-900 line-clamp-2"
-              >
-                {{ item.product.title }}
-              </p>
-            </div>
-            <!-- Quantity -->
-            <div
-              class="md:col-span-2 col-span-10 w-1/2 md:w-full flex flex-col justify-center items-center"
-            >
-              <div
-                class="flex justify-between items-center gap-1 cart-btn px-2 py-1 w-full rounded-full text-xs"
-              >
-                <i class="fas fa-minus cursor-pointer"></i>
-                <p>{{ item.count }}</p>
-                <i class="fas fa-plus cursor-pointer"></i>
-              </div>
-            </div>
+              {{ item.product.title }}
+            </p>
+          </div>
+          <!-- Price and Update -->
+          <div
+            class="flex justify-between items-center md:flex-col md:justify-between md:items-end w-full md:gap-5"
+          >
             <!-- Price -->
+            <p class="text-sm md:text-xl font-extrabold text-main">
+              {{ item.price | currency : " EGP " }}
+            </p>
+            <!-- Update Cart options -->
             <div
-              class="md:col-span-3 col-span-10 flex justify-between items-center"
+              class="flex md:flex-row justify-center md:justify-start items-center md:gap-3 gap-2"
             >
-              <p class="text-xs md:text-xl font-bold text-main">
-                {{ item.price | currency : " EGP " }}
-              </p>
+              <!-- Quantity -->
+              <div class="my-2">
+                <div
+                  class="flex justify-between items-center rounded-lg border-0 border-gray-500 gap-2"
+                >
+                  <i
+                    (click)="updateItem(item, 'decrement')"
+                    class="fas fa-minus text-xs text-gray-500 cursor-pointer"
+                  ></i>
+                  <p class="text-xs text-gray-700">
+                    {{ item.count }}
+                  </p>
+                  <i
+                    (click)="updateItem(item, 'increment')"
+                    class="fas fa-plus text-xs text-gray-500 cursor-pointer"
+                  ></i>
+                </div>
+              </div>
+              <!-- Delete item -->
+              <button
+                (click)="removeItem(item.product._id)"
+                class="flex justify-center items-center cursor-pointer rounded-lg md:border-1 text-gray-500 border-gray-500 p-2 gap-1 hover:text-red-600 hover:border-red-600 duration-300"
+              >
+                @if(isLoadingDelete){
+                <i class="fas fa-spin fa-spinner"></i>
+                }@else {
+                <i class="fas fa-trash text-xs"></i>
+                <p class="hidden md:block text-xs">Remove</p>
+                }
+              </button>
             </div>
           </div>
         </div>
+        <!-- Spinner -->
+        @if(isLoading){
+        <div
+          class="absolute inset-0 bg-gray-300/20 backdrop-blur-xs flex justify-center items-center"
+        >
+          <i class="fas fa-spinner fa-spin text-4xl"></i>
+        </div>
+        }
       </div>
       }
     </div>
     <!-- Payment -->
     <div
-      class="w-full md:w-1/3 p-10 md:sticky md:top-25 border-1 border-gray-300 rounded-4xl overflow-hidden md:self-start"
+      class="w-full md:w-1/3 p-10 md:sticky md:top-25 border-1 border-gray-300 rounded-xl overflow-hidden md:self-start"
     >
-      <p class="text-xl font-semibold text-gray-900 mb-5">Order Summary</p>
+      <p class="text-base font-semibold text-gray-900 mb-5">Order Summary</p>
       <div class="gap-3">
         <div class="flex justify-between items-center w-full mb-5">
-          <p class="text-lg font-normal text-gray-600">Subtotal</p>
-          <p class="text-lg font-semibold text-gray-900">
-            {{ cartItems.totalCartPrice | currency : " EGP " }}
+          <p class="text-base font-normal text-gray-600">Subtotal</p>
+          <p class="text-base font-semibold text-gray-900">
+            {{ totalCartPrice | currency : " EGP " }}
           </p>
         </div>
         <div class="flex justify-between items-center w-full">
-          <p class="text-lg font-normal text-gray-600">Discount</p>
-          <p class="text-lg font-semibold text-gray-900">
-            {{ cartItems.totalCartPrice | currency : " EGP " }}
+          <p class="text-base font-normal text-gray-600">Discount</p>
+          <p class="text-base font-semibold text-gray-900">
+            {{ totalCartPrice | currency : " EGP " }}
           </p>
         </div>
         <hr class="my-5" />
         <div class="flex justify-between items-center w-full">
-          <p class="text-lg font-semibold text-gray-900">Total</p>
-          <p class="text-lg font-semibold text-gray-900">
-            {{ cartItems.totalCartPrice | currency : " EGP " }}
+          <p class="text-base font-semibold text-gray-900">Total</p>
+          <p class="text-base font-semibold text-gray-900">
+            {{ totalCartPrice | currency : " EGP " }}
           </p>
         </div>
       </div>
       <button
-        class="w-full bg-main text-white mt-5 border-0 py-2 px-6 rounded-2xl text-lg"
+        class="w-full bg-main text-white mt-5 border-0 py-2 px-6 rounded-lg text-base"
       >
         Proceed to checkout
       </button>
     </div>
   </div>
 </section>
+
+}

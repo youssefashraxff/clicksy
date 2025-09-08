@@ -5,6 +5,8 @@ import { AddCartResponse } from '../interfaces/AddCartResponse.interface';
 import { GetCartResponse } from '../interfaces/GetCartResponse.interface';
 import { CartData, DeleteItemResponse } from '../interfaces/DeleteItemResponse';
 import { Observable } from 'rxjs';
+import { UpdateItemResponse } from '../interfaces/UpdateItemResponse.interface';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -27,23 +29,32 @@ export class CartService extends Basehttp {
   }
 
   // Update
-  updateCartItem(itemId: string, quantity: number): void {
-    // Implementation for updating item quantity in cart
-  }
-
-  // Delete
-  removeItemFromCart(itemId: string): Observable<DeleteItemResponse> {
-    return this.delete<DeleteItemResponse>(
+  updateCartItem(
+    itemId: string,
+    count: number
+  ): Observable<UpdateItemResponse> {
+    const token = localStorage.getItem('token');
+    return this.put<UpdateItemResponse>(
       `${API_KEYS.cartKey}/${itemId}`,
-      undefined,
+      { count: count },
       {
-        token: localStorage.getItem('token'),
+        headers: new HttpHeaders({
+          token: `${token}`,
+        }),
       }
     );
   }
 
-  // Additional method to clear the cart
-  clearCart(): void {
-    // Implementation for clearing the cart
+  // Delete
+  removeItemFromCart(itemId: string): Observable<DeleteItemResponse> {
+    return this.delete<DeleteItemResponse>(`${API_KEYS.cartKey}/${itemId}`, {
+      token: localStorage.getItem('token'),
+    });
+  }
+
+  // Clear the cart
+  clearCart(): Observable<string> {
+    const token = localStorage.getItem('token');
+    return this.delete<string>(API_KEYS.cartKey, { token: `${token}` });
   }
 }
