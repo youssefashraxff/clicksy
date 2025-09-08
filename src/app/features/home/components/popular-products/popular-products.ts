@@ -5,10 +5,18 @@ import { ProductCard } from '../../../../shared/components/product-card/product-
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ProductsSearchPipe } from '../../../../shared/pipes/products-search-pipe';
 
 @Component({
   selector: 'app-popular-products',
-  imports: [ProductCard, LoadingSpinner, NgxPaginationModule],
+  imports: [
+    ProductCard,
+    LoadingSpinner,
+    NgxPaginationModule,
+    FormsModule,
+    ProductsSearchPipe,
+  ],
   templateUrl: './popular-products.html',
   styleUrl: './popular-products.css',
 })
@@ -19,6 +27,7 @@ export class PopularProducts implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
 
   allProducts: ProductsData[] | undefined;
+  searchText: string = '';
 
   totalItems: number = 1;
   @Input() page!: number;
