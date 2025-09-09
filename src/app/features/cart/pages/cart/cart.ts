@@ -9,12 +9,11 @@ import {
   UpdateCartItems,
 } from '../../interfaces/UpdateItemResponse.interface';
 import { CurrencyPipe } from '@angular/common';
-import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, LoadingSpinner, RouterLink],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })

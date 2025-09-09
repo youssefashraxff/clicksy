@@ -14,18 +14,14 @@ import { HttpHeaders } from '@angular/common/http';
 export class CartService extends Basehttp {
   // Add to Cart
   addItemToCart(productId: string) {
-    return this.post<AddCartResponse>(
-      API_KEYS.cartKey,
-      { productId: productId },
-      { token: localStorage.getItem('token') }
-    );
+    return this.post<AddCartResponse>(API_KEYS.cartKey, {
+      productId: productId,
+    });
   }
 
   // Get Cart Items
   getCartItems(): Observable<GetCartResponse> {
-    return this.get<GetCartResponse>(API_KEYS.cartKey, undefined, {
-      token: localStorage.getItem('token'),
-    });
+    return this.get<GetCartResponse>(API_KEYS.cartKey, undefined);
   }
 
   // Update
@@ -34,27 +30,19 @@ export class CartService extends Basehttp {
     count: number
   ): Observable<UpdateItemResponse> {
     const token = localStorage.getItem('token');
-    return this.put<UpdateItemResponse>(
-      `${API_KEYS.cartKey}/${itemId}`,
-      { count: count },
-      {
-        headers: new HttpHeaders({
-          token: `${token}`,
-        }),
-      }
-    );
+    return this.put<UpdateItemResponse>(`${API_KEYS.cartKey}/${itemId}`, {
+      count: count,
+    });
   }
 
   // Delete
   removeItemFromCart(itemId: string): Observable<DeleteItemResponse> {
-    return this.delete<DeleteItemResponse>(`${API_KEYS.cartKey}/${itemId}`, {
-      token: localStorage.getItem('token'),
-    });
+    return this.delete<DeleteItemResponse>(`${API_KEYS.cartKey}/${itemId}`);
   }
 
   // Clear the cart
   clearCart(): Observable<string> {
     const token = localStorage.getItem('token');
-    return this.delete<string>(API_KEYS.cartKey, { token: `${token}` });
+    return this.delete<string>(API_KEYS.cartKey);
   }
 }
