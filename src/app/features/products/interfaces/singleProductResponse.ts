@@ -30,6 +30,8 @@ export interface SingleProduct {
   description: string;
   quantity: number;
   price: number;
+  priceAfterDiscount: number;
+  availableColors: any[];
   imageCover: string;
   category: Category;
   brand: Brand;

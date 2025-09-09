@@ -2,12 +2,12 @@
 <div class="flex flex-col justify-center items-center mt-40">
   <img class="md:w-1/4 w-1/2" src="/errors/emptycart.png" alt="" />
   <p class="text-2xl font-extrabold">
-    Your cart is <span class="text-red-600">Empty!</span>
+    Your cart is <span class="text-secondary">Empty!</span>
   </p>
   <a
     routerLink="/home"
-    class="mt-10 cursor-pointer text-main text-sm font-light"
-    >Return to home page</a
+    class="mt-10 cursor-pointer text-secondary text-sm font-light underline"
+    >Return to <span class="font-bold">home</span> page</a
   >
 </div>
 
@@ -18,10 +18,10 @@
   </header>
   <button
     (click)="removeCart()"
-    class="flex justify-center items-center text-red-600 gap-2 mb-5 cursor-pointer"
+    class="flex justify-center items-center text-red-600 hover:text-red-400 duration-200 gap-1 mb-5 cursor-pointer"
   >
-    <i class="fas fa-x text-xs"></i>
-    <p class="font-extralight">Remove all items</p>
+    <i class="fas fa-xmark text-xs"></i>
+    <p class="font-extralight text-xs">Remove all items</p>
   </button>
   <div class="md:flex justify-center items-start gap-10 relative">
     <!-- Cart -->
@@ -74,14 +74,14 @@
                 >
                   <i
                     (click)="updateItem(item, 'decrement')"
-                    class="fas fa-minus text-xs text-gray-500 cursor-pointer"
+                    class="fas fa-minus text-xs text-secondary hover:text-secondary-muted duration-200 cursor-pointer"
                   ></i>
-                  <p class="text-xs text-gray-700">
+                  <p class="text-xs text-secondary">
                     {{ item.count }}
                   </p>
                   <i
                     (click)="updateItem(item, 'increment')"
-                    class="fas fa-plus text-xs text-gray-500 cursor-pointer"
+                    class="fas fa-plus text-xs cursor-pointer text-secondary hover:text-secondary-muted duration-200"
                   ></i>
                 </div>
               </div>
@@ -125,8 +125,8 @@
         </div>
         <div class="flex justify-between items-center w-full">
           <p class="text-base font-normal text-gray-600">Discount</p>
-          <p class="text-base font-semibold text-gray-900">
-            {{ totalCartPrice | currency : " EGP " }}
+          <p class="text-base font-semibold text-green-600">
+            - {{ totalCartPrice | currency : " EGP " }}
           </p>
         </div>
         <hr class="my-5" />
@@ -138,7 +138,7 @@
         </div>
       </div>
       <button
-        class="w-full bg-main text-white mt-5 border-0 py-2 px-6 rounded-lg text-base"
+        class="w-full bg-secondary hover:bg-secondary-muted duration-200 cursor-pointer text-white mt-5 border-0 py-2 px-6 rounded-lg text-base"
       >
         Proceed to checkout
       </button>

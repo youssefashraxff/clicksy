@@ -1,16 +1,15 @@
 .btn-main {
-  @apply cursor-pointer px-3 lg:px-9 w-full py-2 mt-8 rounded-md bg-main text-gray-100 focus:outline-none;
+  @apply cursor-pointer px-3 lg:px-9 w-full py-2 mt-8 rounded-md bg-secondary hover:bg-secondary-muted duration-200 text-gray-100 focus:outline-none;
 }
 .btn-main-circled {
   @apply flex justify-center items-center cursor-pointer w-8 h-8 md:p-2 rounded-full focus:outline-none;
 }
 .cart-btn {
-  @apply border-gray-300 bg-gray-300/30 backdrop-blur-md text-yellow  hover:text-yellow/50 duration-200;
-  border: solid 0.5px;
+  @apply text-secondary md:text-lg text-base cursor-pointer hover:text-secondary-muted duration-200;
 }
 .quantity-btn {
   @apply bg-gray-300/30 backdrop-blur-md text-main  hover:text-white duration-200;
-  border: solid var(--color-yellow) 1px;
+  border: solid var(--color-secondary) 1px;
 }
 .added-wishlist-btn {
   @apply border-gray-300 bg-gray-300/30 backdrop-blur-md text-red-500  hover:text-white duration-200;

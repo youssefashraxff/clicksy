@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "e-commerce-app00": {
+    "clicksy": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -85,10 +85,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "e-commerce-app00:build:production"
+              "buildTarget": "clicksy:build:production"
             },
             "development": {
-              "buildTarget": "e-commerce-app00:build:development"
+              "buildTarget": "clicksy:build:development"
             }
           },
           "defaultConfiguration": "development"

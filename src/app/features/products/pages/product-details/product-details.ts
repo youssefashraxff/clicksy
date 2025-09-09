@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SingleProduct } from '../../interfaces/singleProductResponse';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 import { PopularProducts } from '../../../home/components/popular-products/popular-products';
-import { isPlatformBrowser } from '@angular/common';
+import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { CategoryProductsCarousel } from '../../components/category-products-carousel/category-products-carousel';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { CartService } from '../../../cart/services/cart.service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -15,6 +17,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
     PopularProducts,
     CategoryProductsCarousel,
     CarouselModule,
+    CurrencyPipe,
   ],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
@@ -26,8 +29,13 @@ export class ProductDetails implements OnInit {
   // Service Inject
   private readonly productsServices = inject(ProductsServices);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly cartService = inject(CartService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly toastrService = inject(ToastrService);
+
+  isLoading: boolean = false;
+  isAddedToCart: boolean = false;
 
   // Carousel Options
   customOptions: OwlOptions = {
@@ -77,5 +85,17 @@ export class ProductDetails implements OnInit {
           this.router.navigate([], { queryParams: { page: this.page } });
         },
       });
+  }
+
+  // Add to cart
+  addToCart(productId: string): void {
+    this.isLoading = true;
+    this.cartService.addItemToCart(productId).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.isAddedToCart = true;
+        this.toastrService.success(response.message);
+      },
+    });
   }
 }

@@ -1,5 +1,6 @@
 <div
   class="h-full border-1 border-gray-100 border-opacity-60 overflow-hidden flex flex-col"
+  [ngClass]="isInCarousel ? 'md:px-10 px-1' : ''"
 >
   <!-- Card Image -->
   <div class="relative overflow-hidden w-full">
@@ -7,7 +8,6 @@
       [routerLink]="['/details', product._id, product.slug]"
       [queryParams]="{ page: page }"
       class="h-full w-full object-contain hover:scale-105 duration-500 cursor-pointer"
-      [ngClass]="isInCarousel ? 'md:h-[200px] scale-125 hover:scale-130' : ''"
       [src]="product.imageCover"
       alt="blog"
     />
@@ -28,7 +28,8 @@
     <div>
       <div>
         <h2
-          class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
+          class="tracking-widest title-font font-medium text-gray-400 mb-1"
+          [ngClass]="isInCarousel ? 'text-sm' : 'text-xs md:text-sm'"
         >
           {{ product.category.name }}
         </h2>
@@ -37,24 +38,25 @@
             [routerLink]="['/details', product._id, product.slug]"
             [queryParams]="{ page: page }"
             [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
-            class="title-font md:text-lg font-semibold text-gray-900 line-clamp-1"
+            class="title-font font-semibold text-gray-900 line-clamp-1"
           >
             {{ product.title }}
           </a>
           <div
-            class="flex justify-center items-center gap-2 text-sm md:text-base"
+            class="flex justify-center items-center gap-1 text-sm md:text-base"
           >
             <p>
               {{ product.ratingsAverage }}
             </p>
-            <i class="fa-solid fa-star text-orange-300"></i>
+            <i class="fa-solid fa-star text-secondary"></i>
           </div>
         </div>
       </div>
     </div>
     <div>
       <p
-        class="text-xs md:text-base leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
+        class="leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
+        [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
       >
         {{ product.description }}
       </p>
@@ -78,7 +80,7 @@
       }
     </div>
     <!-- Price and Add to Cart -->
-    <div class="flex items-end justify-between gap-3">
+    <div class="flex items-center justify-between gap-3">
       <div class="">
         <p class="md:text-xl text-base font-bold text-main">
           @if(product.priceAfterDiscount){
@@ -92,35 +94,33 @@
       @if(!isAddedToCart){
       <div>
         @if(isLoading){
-        <i class="fas fa-spinner fa-spin btn-main-circled cart-btn text-xs"></i>
+        <i class="fas fa-spinner fa-spin cart-btn text-xs"></i>
         } @else {
         <i
           (click)="addToCart(product._id)"
           title="Add to Cart"
-          class="fas fa-cart-shopping btn-main-circled cart-btn text-sm"
+          class="fas fa-cart-shopping cart-btn"
         ></i>
         }
       </div>
-      } @else {
+      }@else{
       <!-- Added quantity -->
-      <div class="hidden md:block">
-        <div class="flex justify-end">
-          <div
-            class="flex justify-between items-center gap-5 cart-btn px-2 py-1 w-full rounded-full text-xs"
-          >
-            <i
-              class="fas fa-minus cursor-pointer"
-              (click)="decreaseQty(product._id)"
-            ></i>
-            @if(isLoading){
-            <i class="fas fa-spinner fa-spin text-sm py-0.5"></i>}@else {
-            <p>{{ quantity }}</p>
-            }
-            <i
-              class="fas fa-plus cursor-pointer"
-              (click)="increaseQty(product._id)"
-            ></i>
-          </div>
+      <div class="">
+        <div
+          class="flex justify-between items-center md:gap-4 gap-2 text-secondary text-xs"
+        >
+          <i
+            class="fas fa-minus cursor-pointer"
+            (click)="decreaseQty(product._id)"
+          ></i>
+          @if(isLoading){
+          <i class="fas fa-spinner fa-spin text"></i>}@else {
+          <p class="font-normal">{{ quantity }}</p>
+          }
+          <i
+            class="fas fa-plus cursor-pointer"
+            (click)="increaseQty(product._id)"
+          ></i>
         </div>
       </div>
       }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d7d7d7;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #ff7c33;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #ff8c52;
+      }
+    </style>
+  </defs>
+  <path class="cls-3" d="M92.69,0h214.61c51.16,0,92.69,41.53,92.69,92.69v214.61c0,51.16-41.53,92.69-92.69,92.69H90.91c-50.17,0-90.91-40.74-90.91-90.91V92.69C0,41.53,41.53,0,92.69,0Z"/>
+  <g>
+    <rect class="cls-1" x="100.72" y="292.32" width="20.31" height="53.63" rx="10.15" ry="10.15" transform="translate(47.32 650.96) rotate(-150)"/>
+    <rect class="cls-1" x="90.05" y="252.9" width="20.31" height="53.63" rx="10.15" ry="10.15" transform="translate(47.13 572.06) rotate(-150)"/>
+    <rect class="cls-1" x="140.19" y="281.85" width="20.31" height="53.63" rx="10.15" ry="10.15" transform="translate(126.22 651.15) rotate(-150)"/>
+    <g>
+      <path class="cls-2" d="M218.85,128.74s-.75-.55-1.07-.9l-64.35-69.77c-3.55-3.85-10.1-1.07-10.54,4.47l-17.58,222.35c-.17,2.11,1.83,4.55,2.57,5.38l91.21-161.41c-.14-.07-.23-.11-.23-.11Z"/>
+      <path class="cls-4" d="M134.53,290.08l180.89-130.49c4.51-3.25,3.48-10.29-1.65-11.33l-93.05-18.76c-.49-.1-1.27-.46-1.65-.64l-91.21,161.41c.17.18.27.29.27.29,0,0,4.27,1.06,6.39-.47Z"/>
+    </g>
+  </g>
+</svg>
