@@ -10,10 +10,10 @@
         <div
           class="flex flex-col justify-between md:justify-start items-center gap-5"
         >
-          <div class="flex-1 h-[300px] md:h-[500px] overflow-hidden">
+          <div class="flex-1 overflow-hidden">
             <img
               #mainImg
-              class="h-full mx-auto object-cover object-center scale-105 rounded-lg"
+              class="mx-auto object-cover object-center scale-105 rounded-lg"
               [src]="productDetails.imageCover"
               alt=""
             />
@@ -23,7 +23,9 @@
             <owl-carousel-o [options]="customOptions">
               @for (image of productDetails.images; track $index) {
               <ng-template carouselSlide [id]="image">
-                <div class="relative rounded-lg overflow-hidden group px-2">
+                <div
+                  class="relative rounded-lg overflow-hidden group px-2 xl:mx-2"
+                >
                   <img
                     #secImg
                     class="w-full h-full mx-auto object-cover object-center scale-110"
@@ -56,7 +58,7 @@
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">
           {{ productDetails.title }}
         </h1>
-        <!-- Ratingd -->
+        <!-- Rating -->
         <div class="flex mb-4">
           <span class="flex items-center">
             <span class="text-gray-600 mr-1"
@@ -92,7 +94,8 @@
           }
         </div>
         <!-- Price, add to cart and wishlist -->
-        <div class="flex justify-between gap-4">
+        <div class="flex md:flex-none flex-col justify-between gap-4">
+          <!-- Price -->
           <p
             class="m-0 title-font font-bold text-2xl md:text-3xl leading-relaxed text-gray-900"
           >
@@ -102,13 +105,17 @@
             {{ productDetails.price | currency : " EGP " }}
             }
           </p>
+          <!-- Add to cart and wishlist btns -->
           <div class="flex justify-center md:gap-6 gap-3">
             <button
               class="!mt-0 btn-main"
               (click)="addToCart(productDetails._id)"
             >
               Add to cart
-              <i title="Add to Cart" class="fas fa-cart-shopping md:ms-2"></i>
+              <i
+                title="Add to Cart"
+                class="fas fa-cart-shopping md:ms-2 ms-3"
+              ></i>
             </button>
             <button
               class="hover:text-red-500 rounded-full px-5 w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500"

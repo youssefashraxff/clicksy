@@ -1,6 +1,6 @@
 <div
   class="h-full border-1 border-gray-100 border-opacity-60 overflow-hidden flex flex-col"
-  [ngClass]="isInCarousel ? 'md:px-10 px-1' : ''"
+  [ngClass]="isInCarousel ? 'md:px-10 xl:px-2 px-1' : ''"
 >
   <!-- Card Image -->
   <div class="relative overflow-hidden w-full">
@@ -62,7 +62,10 @@
       </p>
     </div>
     <!-- Discount Details -->
-    <div class="text-xxs md:text-sm flex justify-start items-center">
+    <div
+      class="text-xxs md:text-sm flex justify-start items-center"
+      [ngClass]="isInCarousel ? 'xl:text-xs' : ''"
+    >
       @if((product.priceAfterDiscount) &&
       !(product.priceAfterDiscount===product.price)){
       <p class="line-through text-gray-400">
@@ -82,7 +85,10 @@
     <!-- Price and Add to Cart -->
     <div class="flex items-center justify-between gap-3">
       <div class="">
-        <p class="md:text-xl text-base font-bold text-main">
+        <p
+          class="md:text-xl text-base font-bold text-main"
+          [ngClass]="isInCarousel ? 'xl:text-base' : ''"
+        >
           @if(product.priceAfterDiscount){
           {{ product.priceAfterDiscount | currency : " EGP " }}
           } @else {

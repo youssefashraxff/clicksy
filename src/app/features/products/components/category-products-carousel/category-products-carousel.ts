@@ -31,8 +31,8 @@ export class CategoryProductsCarousel implements OnInit {
     responsive: {
       0: { items: 2 },
       400: { items: 2 },
-      740: { items: 3 },
-      940: { items: 4 },
+      740: { items: 4 },
+      940: { items: 5 },
     },
     nav: true,
   };

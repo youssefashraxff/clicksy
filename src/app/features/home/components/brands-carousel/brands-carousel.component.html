@@ -1,0 +1,11 @@
+<owl-carousel-o [options]="customOptions">
+  @for (brand of brandsImages; track brand._id) {
+  <ng-template carouselSlide [id]="brand._id">
+    <img
+      class="object-cover h-[200px]"
+      [src]="brand.image"
+      [alt]="brand.name"
+    />
+  </ng-template>
+  }
+</owl-carousel-o>
