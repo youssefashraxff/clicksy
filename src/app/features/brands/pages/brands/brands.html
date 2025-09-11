@@ -1,3 +1,24 @@
-<section class="px-25 mt-30">
-  <h1 class="text-7xl font-bold">Our Valued Brands</h1>
+<section class="pt-10 pb-20 px-5 md:px-20 md:mx-auto !bg-white">
+  <header>
+    <h1
+      class="relative md:text-7xl text-7xl text-secondary px-10 py-5 text-center font-extrabold tracking-tight"
+    >
+      Our Valued
+      <span class="text-main italic font-medium">Brands</span>
+    </h1>
+  </header>
+
+  <div class="grid md:grid-cols-5 grid-cols-3 gap-2">
+    @for(brand of allBrands ; track brand._id){
+
+    <div class="">
+      <img
+        class="w-full object-center hover:scale-105 duration-1000"
+        [src]="brand.image"
+        alt="blog"
+      />
+    </div>
+
+    }
+  </div>
 </section>

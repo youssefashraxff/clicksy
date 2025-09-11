@@ -25,6 +25,7 @@ export class WishlistComponent implements OnInit {
   allWishlistItems!: getWishlistData[];
 
   isLoading: boolean = false;
+  isWishlistLoading: boolean = false;
   isAddedToCart: boolean = false;
   quantity: number = 1;
 
@@ -44,9 +45,11 @@ export class WishlistComponent implements OnInit {
   }
 
   removeFromWishlist(productId: string): void {
+    this.isWishlistLoading = true;
     this.wishlistService.removeFromWishlist(productId).subscribe({
       next: (response) => {
-        this.toastrService.success('Product removed from wishlist');
+        this.isWishlistLoading = false;
+        this.toastrService.success('Removed from wishlist');
         this.loadWishlistItems();
       },
       error: (error) => {

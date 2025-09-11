@@ -1,136 +1,145 @@
 @if(!allWishlistItems){
 <app-loading-spinner />
 }@else{
-<section class="mt-5 mb-5 px-10 md:px-15 lg:px-25 xl:px-35">
+<section class="mt-35 mb-5 px-5 md:px-15 lg:px-25 xl:px-50">
+  <header>
+    <h1 class="relative text-5xl text-main font-extrabold mb-5">
+      Wishlist items
+    </h1>
+  </header>
+
   <!-- Products Grid -->
-  <div class="wishlist-products-grid">
+  <div>
     @for(product of allWishlistItems ; track product._id){
     <div
-      class="h-full border-1 border-gray-100 border-opacity-60 overflow-hidden flex flex-col"
+      class="grid md:grid-cols-5 grid-cols-7 border-1 border-gray-300 rounded-xl my-2 overflow-hidden"
     >
       <!-- Card Image -->
-      <div class="relative overflow-hidden w-full">
+      <div class="md:col-span-1 col-span-2">
         <img
           [routerLink]="['/details', product._id, product.slug]"
-          class="h-full w-full object-contain hover:scale-105 duration-500 cursor-pointer"
+          class="h-full w-full object-cover hover:scale-105 duration-500 cursor-pointer"
           [src]="product.imageCover"
           alt="blog"
         />
-        <!-- Add to wishlist -->
-        <div>
-          <i
-            title="Add to Wishlist"
-            class="absolute top-0 end-0 mt-2 me-2 fas fa-heart btn-main-circled text-xs md:text-lg mb-2"
-          ></i>
-        </div>
       </div>
       <!-- Card Details -->
       <div
-        class="w-full p-0 !mt-3 mb-5 md:mt-0 md:mb-0 flex flex-col justify-between flex-1"
+        class="md:col-span-4 col-span-5 md:px-10 px-2 gap-1 md:gap-0 flex flex-col md:justify-evenly justify-between md:py-0 py-2"
       >
+        <!-- Title, rating and description -->
         <div>
           <div>
-            <h2
-              class="tracking-widest title-font font-medium text-gray-400 mb-1"
+            <div>
+              <!-- <h2
+              class="tracking-widest md:text-lg text-xs font-medium text-gray-400 mb-1"
             >
               {{ product.category.name }}
-            </h2>
-            <div class="flex justify-between items-center">
-              <a
-                [routerLink]="['/details', product._id, product.slug]"
-                class="title-font font-semibold text-gray-900 line-clamp-1"
-              >
-                {{ product.title }}
-              </a>
-              <div
-                class="flex justify-center items-center gap-1 text-sm md:text-base"
-              >
-                <p>
-                  {{ product.ratingsAverage }}
-                </p>
-                <i class="fa-solid fa-star text-secondary"></i>
+            </h2> -->
+              <div class="flex justify-between items-center">
+                <a
+                  [routerLink]="['/details', product._id, product.slug]"
+                  class="md:text-lg text-xs font-semibold text-gray-900 line-clamp-1"
+                >
+                  {{ product.title }}
+                </a>
+                <div
+                  class="flex justify-center items-center gap-1 text-xs md:text-base"
+                >
+                  <p>
+                    {{ product.ratingsAverage }}
+                  </p>
+                  <i class="fa-solid fa-star text-secondary"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <p class="leading-relaxed mb-3 font-light text-gray-500 line-clamp-2">
-            {{ product.description }}
-          </p>
-        </div>
-        <!-- Discount Details -->
-        <div class="text-xxs md:text-sm flex justify-start items-center">
-          @if((product.priceAfterDiscount) &&
-          !(product.priceAfterDiscount===product.price)){
-          <p class="line-through text-gray-400">
-            {{ product.price | currency : " EGP " }}
-          </p>
-          <p class="text-green-500 font-light ms-1">
-            {{
-              (
-                ((product.price - product.priceAfterDiscount) / product.price) *
-                100
-              ).toFixed()
-            }}
-            % OFF
-          </p>
-          }
-        </div>
-        <!-- Price and Add to Cart -->
-        <div class="flex items-center justify-between gap-3">
-          <div class="">
-            <p class="md:text-xl text-base font-bold text-main">
-              @if(product.priceAfterDiscount){
-              {{ product.priceAfterDiscount | currency : " EGP " }}
-              } @else {
-              {{ product.price | currency : " EGP " }}
-              }
+          <div>
+            <p
+              class="md:text-lg text-xs leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
+            >
+              {{ product.description }}
             </p>
           </div>
-          <!-- Add to cart Btn -->
-          @if(!isAddedToCart){
-          <div>
-            @if(isLoading){
-            <i class="fas fa-spinner fa-spin cart-btn text-xs"></i>
-            } @else {
-            <i
-              (click)="addToCart(product._id)"
-              title="Add to Cart"
-              class="fas fa-cart-shopping cart-btn"
-            ></i>
+        </div>
+        <!-- Prices -->
+        <div>
+          <!-- Discount Details -->
+          <div class="text-xxs md:text-sm flex justify-start items-center">
+            @if((product.priceAfterDiscount) &&
+            !(product.priceAfterDiscount===product.price)){
+            <p class="line-through text-gray-400">
+              {{ product.price | currency : " EGP " }}
+            </p>
+            <p class="text-green-500 font-light ms-1">
+              {{
+                (
+                  ((product.price - product.priceAfterDiscount) /
+                    product.price) *
+                  100
+                ).toFixed()
+              }}
+              % OFF
+            </p>
             }
           </div>
-          }@else{
-          <!-- Added quantity -->
-          <div class="">
-            <div
-              class="flex justify-between items-center md:gap-4 gap-2 text-secondary text-xs"
-            >
-              <i
-                class="fas fa-minus cursor-pointer"
-                (click)="decreaseQty(product._id)"
-              ></i>
-              @if(isLoading){
-              <i class="fas fa-spinner fa-spin text"></i>}@else {
-              <p class="font-normal">{{ quantity }}</p>
-              }
-              <i
-                class="fas fa-plus cursor-pointer"
-                (click)="increaseQty(product._id)"
-              ></i>
+          <!-- Price and Add to Cart -->
+          <div class="flex items-center justify-between gap-3">
+            <div class="">
+              <p class="md:text-xl text-base font-bold text-main">
+                @if(product.priceAfterDiscount){
+                {{ product.priceAfterDiscount | currency : " EGP " }}
+                } @else {
+                {{ product.price | currency : " EGP " }}
+                }
+              </p>
             </div>
+            <!-- Add to cart Btn -->
+            @if(!isAddedToCart){
+            <div>
+              @if(isLoading){
+              <i class="fas fa-spinner fa-spin cart-btn text-xs"></i>
+              } @else {
+              <i
+                (click)="addToCart(product._id)"
+                title="Add to Cart"
+                class="fas fa-cart-shopping cart-btn"
+              ></i>
+              }
+            </div>
+            }@else{
+            <!-- Added quantity -->
+            <div class="">
+              <div
+                class="flex justify-between items-center md:gap-4 gap-2 text-secondary text-xs"
+              >
+                <i
+                  class="fas fa-minus cursor-pointer"
+                  (click)="decreaseQty(product._id)"
+                ></i>
+                @if(isLoading){
+                <i class="fas fa-spinner fa-spin text"></i>}@else {
+                <p class="font-normal">{{ quantity }}</p>
+                }
+                <i
+                  class="fas fa-plus cursor-pointer"
+                  (click)="increaseQty(product._id)"
+                ></i>
+              </div>
+            </div>
+            }
           </div>
-          }
         </div>
+        <!-- Wishlist btn-->
+        <button
+          (click)="removeFromWishlist(product._id)"
+          class="text-white bg-secondary mt-3 border-0 py-2 px-6 rounded md:text-lg text-xs text-center cursor-pointer hover:bg-secondary-muted duration-200"
+        >
+          @if (isWishlistLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+          }@else { Remove from wishlist }
+        </button>
       </div>
-      <!-- Wishlist -->
-
-      <button
-        (click)="removeFromWishlist(product._id)"
-        class="text-white bg-secondary mt-3 border-0 py-2 px-6 rounded text-lg text-center cursor-pointer"
-      >
-        Remove from wishlist
-      </button>
     </div>
 
     }

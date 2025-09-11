@@ -1,11 +1,13 @@
 @if(!allCategories){
 <app-loading-spinner />
 }@else {
-<section class="my-4 px-4">
+<section class="mt-35 mb-20 px-5 md:px-20 md:mx-auto">
   <header>
-    <h1 class="text-4xl text-main font-bold">Fresh Cart - All Categories</h1>
+    <h1 class="relative text-5xl text-main font-extrabold mb-5">
+      Our Categories
+    </h1>
   </header>
-  <hr class="my-4" />
+
   <div class="grid md:grid-cols-3 gap-4">
     @for(category of allCategories ; track category._id){
 
@@ -13,7 +15,7 @@
       class="relative h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
     >
       <img
-        class="md:h-[350px] w-full object-cover object-center"
+        class="md:h-[350px] w-full object-cover object-center hover:scale-105 duration-1000"
         [src]="category.image"
         alt="blog"
       />

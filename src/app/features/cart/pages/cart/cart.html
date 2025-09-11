@@ -14,14 +14,14 @@
 }@else {
 <section class="mt-35 px-5 md:px-20 md:mx-auto">
   <header>
-    <p class="text-3xl font-extrabold text-main mb-5">Shopping Cart</p>
+    <h1 class="relative text-5xl text-main font-extrabold mb-5">Cart items</h1>
   </header>
   <button
     (click)="removeCart()"
     class="flex justify-center items-center text-red-600 hover:text-red-400 duration-200 gap-1 mb-5 cursor-pointer"
   >
-    <i class="fas fa-xmark text-xs"></i>
-    <p class="font-extralight text-xs">Remove all items</p>
+    <i class="fas fa-xmark text-base"></i>
+    <p class="font-light text-base">Remove all items</p>
   </button>
   <div class="md:flex justify-center items-start gap-10 relative">
     <!-- Cart -->
@@ -32,7 +32,7 @@
         class="relative grid md:grid-cols-5 grid-cols-7 border-1 border-gray-300 rounded-xl overflow-hidden mb-5"
       >
         <!-- Item Image -->
-        <div class="md:col-span-1 col-span-2 md:h-[200px] h-[150px]">
+        <div class="md:col-span-1 col-span-2">
           <img
             class="object-cover h-full object-center"
             [src]="item.product.imageCover"
