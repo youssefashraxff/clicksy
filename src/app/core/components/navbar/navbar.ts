@@ -13,8 +13,11 @@ import { WishlistService } from '../../../features/wishlist/services/wishlist.se
 })
 export class Navbar implements AfterViewInit, OnInit {
   @Input() isLoggedIn = false;
+
   private readonly authenticationService = inject(AuthServices);
+
   private readonly flowbiteService = inject(FlowbiteService);
+
   private readonly cartService = inject(CartService);
   private readonly wishlistService = inject(WishlistService);
 
@@ -22,21 +25,15 @@ export class Navbar implements AfterViewInit, OnInit {
   wishlistItemsCount: number = 0;
 
   ngOnInit(): void {
-    this.getCartItemsCount();
-    this.getWishlistItemsCount();
-  }
-  getCartItemsCount() {
-    this.cartService.getCartItems().subscribe({
-      next: (response) => {
-        this.cartItemsCount = response.numOfCartItems;
+    this.wishlistService.wishlistCount$.subscribe({
+      next: (count) => {
+        this.wishlistItemsCount = count;
       },
     });
-  }
 
-  getWishlistItemsCount() {
-    this.wishlistService.getWishlist().subscribe({
-      next: (response) => {
-        this.wishlistItemsCount = response.count;
+    this.cartService.cartitemCount$.subscribe({
+      next: (count) => {
+        this.cartItemsCount = count;
       },
     });
   }

@@ -7,8 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CartItems } from '../../../features/cart/interfaces/AddCartResponse.interface';
 import { CartItemsD } from '../../../features/cart/interfaces/DeleteItemResponse';
 import { WishlistService } from '../../../features/wishlist/services/wishlist.service';
-import { SharedCartService } from '../../services/shared-cart.service';
-import { UpdateCartItems } from '../../../features/cart/interfaces/UpdateItemResponse.interface';
 
 @Component({
   selector: 'app-product-card',
@@ -24,7 +22,6 @@ export class ProductCard {
   // Services
   private readonly cartService = inject(CartService);
   private readonly wishlistService = inject(WishlistService);
-  private readonly sharedCartService = inject(SharedCartService);
   private readonly toastrService = inject(ToastrService);
 
   // Variables
@@ -46,11 +43,19 @@ export class ProductCard {
   // Add to cart
   addToCart(productId: string): void {
     this.isLoading = true;
-    const response = this.sharedCartService.addToCart(productId);
+    this.cartService.addItemToCart(productId).subscribe({
+      next: (response) => {
+        this.handlePostresponse(response, productId);
+      },
+    });
+  }
+  handlePostresponse(response: any, productId?: string) {
     this.isLoading = false;
     this.isAddedToCart = true;
     const cartItems: CartItems[] = response?.data?.products ?? [];
-    this.quantity = this.getCountForAdd(cartItems, productId);
+    if (productId) {
+      this.quantity = this.getCountForAdd(cartItems, productId);
+    }
     if (response?.message) {
       this.toastrService.success(response.message);
     }

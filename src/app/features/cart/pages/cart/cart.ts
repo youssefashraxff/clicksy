@@ -10,7 +10,6 @@ import {
 } from '../../interfaces/UpdateItemResponse.interface';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { SharedCartService } from '../../../../shared/services/shared-cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +19,6 @@ import { SharedCartService } from '../../../../shared/services/shared-cart.servi
 })
 export class Cart implements OnInit {
   // Services
-  private readonly sharedCartService = inject(SharedCartService);
   private readonly cartService = inject(CartService);
 
   // Variables
@@ -46,14 +44,30 @@ export class Cart implements OnInit {
   }
   removeItem(itemID: string): void {
     this.isLoadingDelete = true;
-    this.handleAfterResponse(this.sharedCartService.removeItem(itemID));
+    this.cartService.removeItemFromCart(itemID).subscribe({
+      next: (response) => {
+        this.handleAfterResponse(response);
+      },
+    });
   }
   updateItem(item: UpdateCartItems, operation: string) {
+    this.handlePreUpdate(item, operation);
+    this.cartService.updateCartItem(item.product._id, item.count).subscribe({
+      next: (response) => {
+        return response;
+      },
+      error: (err) => {
+        console.log('Error from update', err);
+      },
+    });
+  }
+  handlePreUpdate(item: UpdateCartItems, operation: string) {
     this.isLoading = true;
-    this.handleAfterResponse(
-      this.sharedCartService.updateItem(item, operation)
-    );
-    return;
+    if (item.count === 1 && operation === 'decrement') {
+      this.removeItem(item.product._id);
+      return;
+    }
+    item.count = operation === 'increment' ? ++item.count : --item.count;
   }
   removeCart(): void {
     this.cartService.clearCart().subscribe({

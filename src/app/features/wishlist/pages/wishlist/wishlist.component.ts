@@ -1,13 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { WishlistService } from '../../services/wishlist.service';
 import { getWishlistData } from '../../interfaces/getWishlistResponse';
-import { ProductCard } from '../../../../shared/components/product-card/product-card';
 import { CartItemsD } from '../../../cart/interfaces/DeleteItemResponse';
 import { CartItems } from '../../../cart/interfaces/AddCartResponse.interface';
-import { SharedCartService } from '../../../../shared/services/shared-cart.service';
-import { Cart } from '../../../cart/pages/cart/cart';
 import { CartService } from '../../../cart/services/cart.service';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
@@ -21,7 +18,6 @@ import { LoadingSpinner } from '../../../../shared/components/loading-spinner/lo
 export class WishlistComponent implements OnInit {
   // Injected Services
   private readonly wishlistService = inject(WishlistService);
-  private readonly sharedCartService = inject(SharedCartService);
   private readonly cartService = inject(CartService);
   private readonly toastrService = inject(ToastrService);
 
@@ -62,11 +58,19 @@ export class WishlistComponent implements OnInit {
   // Add to cart
   addToCart(productId: string): void {
     this.isLoading = true;
-    const response = this.sharedCartService.addToCart(productId);
+    this.cartService.addItemToCart(productId).subscribe({
+      next: (response) => {
+        this.handlePostresponse(response, productId);
+      },
+    });
+  }
+  handlePostresponse(response: any, productId?: string) {
     this.isLoading = false;
     this.isAddedToCart = true;
     const cartItems: CartItems[] = response?.data?.products ?? [];
-    this.quantity = this.getCountForAdd(cartItems, productId);
+    if (productId) {
+      this.quantity = this.getCountForAdd(cartItems, productId);
+    }
     if (response?.message) {
       this.toastrService.success(response.message);
     }
@@ -92,7 +96,6 @@ export class WishlistComponent implements OnInit {
   getCountForAdd(cartItems: CartItems[], productId: string): number {
     for (let item of cartItems) {
       if (item.product === productId) {
-        console.log('[DEBUG 1 ]', item.product, '   ', productId);
         return item.count;
       }
     }
@@ -101,7 +104,6 @@ export class WishlistComponent implements OnInit {
   getCountForDelete(cartItems: CartItemsD[], productId: string): number {
     for (let item of cartItems) {
       if (item.product._id === productId) {
-        console.log('[DEBUG 2 ]', item.product.id, '   ', productId);
         return item.count;
       }
     }
