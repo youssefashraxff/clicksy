@@ -7,4 +7,5 @@ export const API_KEYS = {
   categoriesKey: `${environments.API_URL}categories`,
   cartKey: `${environments.API_URL}cart`,
   brandsKey: `${environments.API_URL}brands`,
+  wishlistKey: `${environments.API_URL}wishlist`,
 };

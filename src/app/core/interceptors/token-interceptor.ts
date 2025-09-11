@@ -5,7 +5,9 @@ import { platformBrowser } from '@angular/platform-browser';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const requireToken: boolean =
-    req.url.includes('cart') || req.url.includes('order');
+    req.url.includes('cart') ||
+    req.url.includes('order') ||
+    req.url.includes('wishlist');
 
   if (!requireToken) return next(req);
 

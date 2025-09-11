@@ -1,48 +1,64 @@
-import { Component, inject, Input } from '@angular/core';
-import { ProductsData } from '../../../features/products/interfaces/allProductsResponse';
+import { Component, inject, OnInit } from '@angular/core';
+import { WishlistService } from '../../services/wishlist.service';
+import { getWishlistData } from '../../interfaces/getWishlistResponse';
+import { ProductCard } from '../../../../shared/components/product-card/product-card';
+import { CartItemsD } from '../../../cart/interfaces/DeleteItemResponse';
+import { CartItems } from '../../../cart/interfaces/AddCartResponse.interface';
+import { SharedCartService } from '../../../../shared/services/shared-cart.service';
+import { Cart } from '../../../cart/pages/cart/cart';
+import { CartService } from '../../../cart/services/cart.service';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe, NgClass } from '@angular/common';
-import { CartService } from '../../../features/cart/services/cart.service';
-import { ToastrService } from 'ngx-toastr';
-import { CartItems } from '../../../features/cart/interfaces/AddCartResponse.interface';
-import { CartItemsD } from '../../../features/cart/interfaces/DeleteItemResponse';
-import { WishlistService } from '../../../features/wishlist/services/wishlist.service';
-import { SharedCartService } from '../../services/shared-cart.service';
-import { UpdateCartItems } from '../../../features/cart/interfaces/UpdateItemResponse.interface';
+import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 
 @Component({
-  selector: 'app-product-card',
-  imports: [RouterLink, NgClass, CurrencyPipe],
-  templateUrl: './product-card.html',
-  styleUrl: './product-card.css',
+  selector: 'app-wishlist',
+  imports: [CurrencyPipe, RouterLink, LoadingSpinner],
+  templateUrl: './wishlist.component.html',
+  styleUrl: './wishlist.component.css',
 })
-export class ProductCard {
-  @Input() product!: ProductsData;
-  @Input() page!: number;
-  @Input() isInCarousel!: boolean;
-
-  // Services
-  private readonly cartService = inject(CartService);
+export class WishlistComponent implements OnInit {
+  // Injected Services
   private readonly wishlistService = inject(WishlistService);
   private readonly sharedCartService = inject(SharedCartService);
+  private readonly cartService = inject(CartService);
   private readonly toastrService = inject(ToastrService);
 
   // Variables
+  allWishlistItems!: getWishlistData[];
+
   isLoading: boolean = false;
-
-  isAddedToWishList: boolean = false;
   isAddedToCart: boolean = false;
-
-  originalPrice: number | undefined;
-  discountedPrice: number | undefined;
-
   quantity: number = 1;
 
-  constructor() {
-    this.originalPrice = this.product?.price;
-    this.discountedPrice = this.product?.priceAfterDiscount;
+  ngOnInit(): void {
+    this.loadWishlistItems();
   }
 
+  loadWishlistItems(): void {
+    this.wishlistService.getWishlist().subscribe({
+      next: (response) => {
+        this.allWishlistItems = response.data;
+      },
+      error: (error) => {
+        console.error('Error fetching wishlist items:', error);
+      },
+    });
+  }
+
+  removeFromWishlist(productId: string): void {
+    this.wishlistService.removeFromWishlist(productId).subscribe({
+      next: (response) => {
+        this.toastrService.success('Product removed from wishlist');
+        this.loadWishlistItems();
+      },
+      error: (error) => {
+        console.error('Error removing item from wishlist:', error);
+        this.toastrService.error('Failed to remove product from wishlist');
+      },
+    });
+  }
   // Add to cart
   addToCart(productId: string): void {
     this.isLoading = true;
@@ -92,23 +108,6 @@ export class ProductCard {
     return 0;
   }
 
-  // Add to wishlist
-  addToWishList(productId: string): void {
-    this.isAddedToWishList = !this.isAddedToWishList;
-    if (this.isAddedToWishList) {
-      this.wishlistService.addToWishlist(productId).subscribe({
-        next: (response) => {
-          this.toastrService.success(response.message);
-        },
-      });
-    } else {
-      this.wishlistService.removeFromWishlist(productId).subscribe({
-        next: (response) => {
-          this.toastrService.success(response.message);
-        },
-      });
-    }
-  }
   increaseQty(productId: string): void {
     this.addToCart(productId);
   }

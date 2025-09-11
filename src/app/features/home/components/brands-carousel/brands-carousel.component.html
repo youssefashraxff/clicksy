@@ -1,11 +1,15 @@
-<owl-carousel-o [options]="customOptions">
-  @for (brand of brandsImages; track brand._id) {
-  <ng-template carouselSlide [id]="brand._id">
-    <img
-      class="object-cover h-[200px]"
-      [src]="brand.image"
-      [alt]="brand.name"
-    />
-  </ng-template>
-  }
-</owl-carousel-o>
+<div class="bg-white pb-5">
+  <h1
+    class="relative text-5xl text-secondary px-10 py-5 text-center font-extrabold"
+  >
+    Our Valued
+    <span class="text-main italic font-medium tracking-tight">Brands</span>
+  </h1>
+  <owl-carousel-o [options]="customOptions">
+    @for (brand of brandsImages; track brand._id) {
+    <ng-template carouselSlide [id]="brand._id" class="h-[60px]">
+      <img class="h-full px-10" [src]="brand.image" [alt]="brand.name" />
+    </ng-template>
+    }
+  </owl-carousel-o>
+</div>

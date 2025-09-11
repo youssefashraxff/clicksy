@@ -10,6 +10,7 @@ import {
 } from '../../interfaces/UpdateItemResponse.interface';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SharedCartService } from '../../../../shared/services/shared-cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +20,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Cart implements OnInit {
   // Services
+  private readonly sharedCartService = inject(SharedCartService);
   private readonly cartService = inject(CartService);
 
   // Variables
@@ -44,29 +46,14 @@ export class Cart implements OnInit {
   }
   removeItem(itemID: string): void {
     this.isLoadingDelete = true;
-    this.cartService.removeItemFromCart(itemID).subscribe({
-      next: (response) => {
-        this.handleAfterResponse(response);
-      },
-    });
+    this.handleAfterResponse(this.sharedCartService.removeItem(itemID));
   }
   updateItem(item: UpdateCartItems, operation: string) {
     this.isLoading = true;
-    if (item.count === 1 && operation === 'decrement') {
-      this.removeItem(item.product._id);
-      return;
-    }
-    item.count = operation === 'increment' ? ++item.count : --item.count;
-
-    this.cartService.updateCartItem(item.product._id, item.count).subscribe({
-      next: (response) => {
-        console.log('Response from update', response);
-        this.handleAfterResponse(response);
-      },
-      error: (err) => {
-        console.log('Error from update', err);
-      },
-    });
+    this.handleAfterResponse(
+      this.sharedCartService.updateItem(item, operation)
+    );
+    return;
   }
   removeCart(): void {
     this.cartService.clearCart().subscribe({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Basehttp } from '../../../core/services/baseHttp';
 import { API_KEYS } from '../../../core/constants/appAPIs';
 import { Observable } from 'rxjs';
-import { BrandsResponse } from '../interfaces/brandsResponse';
+import { BrandsResponse } from '../interfaces/BrandsResponse';
 
 @Injectable({
   providedIn: 'root',

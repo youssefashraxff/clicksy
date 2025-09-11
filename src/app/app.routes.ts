@@ -34,10 +34,10 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'products',
+        path: 'wishlist',
         loadChildren: () =>
-          import('./features/products/products.routes').then(
-            (module) => module.PRODUCTS_ROUTES
+          import('./features/wishlist/wishlist.routes').then(
+            (module) => module.WISHLIST_ROUTES
           ),
       },
       {

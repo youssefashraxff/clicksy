@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { OwlOptions, CarouselModule } from 'ngx-owl-carousel-o';
 import { BrandsService } from '../../../brands/services/brands.service';
-import { BrandsData } from '../../../brands/interfaces/brandsResponse';
+import { BrandsData } from '../../../brands/interfaces/BrandsResponse';
 
 @Component({
   selector: 'app-brands-carousel',
@@ -21,12 +21,12 @@ export class BrandsCarouselComponent {
     autoplaySpeed: 1000,
     navText: ['', ''],
     responsive: {
-      0: { items: 3 }, // For small screens
+      0: { items: 2 }, // For small screens
       768: { items: 5 }, // For tablets
       1024: { items: 8 }, // For desktop
     },
     autoplay: true,
-    autoplayTimeout: 1300,
+    autoplayTimeout: 3000,
     nav: false,
   };
 

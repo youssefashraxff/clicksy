@@ -4,6 +4,30 @@
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
   >
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
+      </svg>
+    </button>
     <a
       routerLink="home"
       class="flex items-center space-x-3 rtl:space-x-reverse"
@@ -11,8 +35,37 @@
       <img class="w-[120px]" src="/Images/clicksy-logo.svg" alt="" />
     </a>
     <div class="flex justify-center items-center gap-2">
-      <!-- Logout Btn -->
+      <!--Cart, wishlist, Logout Btns -->
       @if(isLoggedIn){
+      <!-- Cart btn -->
+      <a
+        routerLink="cart"
+        routerLinkActive=""
+        class="relative cart-nav-btn visible md:hidden"
+        aria-current="page"
+        ><i class="fas fa-cart-shopping"></i>
+        @if(!(cartItemsCount===0)){
+        <span
+          class="absolute top-0 end-0 bg-secondary text-xxs text-white rounded-full px-1"
+          >{{ cartItemsCount }}</span
+        >
+        }
+      </a>
+      <!-- Wishlist btn -->
+      <a
+        routerLink="wishlist"
+        routerLinkActive=""
+        class="relative wishlist-nav-btn visible md:hidden"
+        aria-current="page"
+        ><i class="fas fa-heart"></i>
+        @if(!(wishlistItemsCount===0)){
+        <span
+          class="absolute top-0 end-0 bg-secondary text-xxs text-white rounded-full px-1"
+          >{{ wishlistItemsCount }}</span
+        >
+        }
+      </a>
+      <!-- Logout btn -->
       <a
         (click)="onSignout()"
         routerLink="signin"
@@ -22,30 +75,6 @@
         ><i class="fa-solid fa-arrow-right-from-bracket"></i
       ></a>
       }
-      <button
-        data-collapse-toggle="navbar-default"
-        type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-default"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 17 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15"
-          />
-        </svg>
-      </button>
     </div>
     <!-- Nav Items -->
     <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -71,15 +100,7 @@
             >Cart</a
           >
         </li>
-        <li class="flex flex-col items-center justify-center">
-          <a
-            routerLink="products"
-            routerLinkActive="!text-secondary"
-            class="nav-item nav-item-after"
-            aria-current="page"
-            >Products</a
-          >
-        </li>
+
         <li class="flex flex-col items-center justify-center">
           <a
             routerLink="categories"
@@ -122,14 +143,40 @@
     </div>
     <!-- Logout Btn -->
     @if(isLoggedIn){
-    <a
-      (click)="onSignout()"
-      routerLink="signin"
-      routerLinkActive=""
-      class="auth-nav-btn hidden md:block"
-      aria-current="page"
-      ><i class="fa-solid fa-arrow-right-from-bracket"></i
-    ></a>
+    <div class="flex justify-center items-center gap-2">
+      <a
+        routerLink="cart"
+        routerLinkActive=""
+        class="relative cart-nav-btn hidden md:block"
+        aria-current="page"
+        ><i class="fas fa-cart-shopping"></i> @if(!(cartItemsCount===0)){
+        <span
+          class="absolute top-0 end-0 bg-secondary text-xxs text-white rounded-full px-1.5"
+          >{{ cartItemsCount }}</span
+        >
+        }</a
+      >
+      <a
+        routerLink="wishlist"
+        routerLinkActive=""
+        class="relative wishlist-nav-btn hidden md:block"
+        aria-current="page"
+        ><i class="fas fa-heart"></i> @if(!(wishlistItemsCount===0)){
+        <span
+          class="absolute top-0 end-0 bg-secondary text-xxs text-white rounded-full px-1.5"
+          >{{ wishlistItemsCount }}</span
+        >
+        }</a
+      >
+      <a
+        (click)="onSignout()"
+        routerLink="signin"
+        routerLinkActive=""
+        class="auth-nav-btn hidden md:block"
+        aria-current="page"
+        ><i class="fa-solid fa-arrow-right-from-bracket"></i
+      ></a>
+    </div>
     }
   </div>
 </nav>
