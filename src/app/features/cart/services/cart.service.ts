@@ -6,7 +6,6 @@ import { GetCartResponse } from '../interfaces/GetCartResponse.interface';
 import { CartData, DeleteItemResponse } from '../interfaces/DeleteItemResponse';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UpdateItemResponse } from '../interfaces/UpdateItemResponse.interface';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

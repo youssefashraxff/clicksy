@@ -1,4 +1,4 @@
-import { Component, inject, OnChanges, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import {
   CartData,
@@ -10,6 +10,7 @@ import {
 } from '../../interfaces/UpdateItemResponse.interface';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ProductsServices } from '../../../products/services/products.services';
 
 @Component({
   selector: 'app-cart',
@@ -20,6 +21,7 @@ import { RouterLink } from '@angular/router';
 export class Cart implements OnInit {
   // Services
   private readonly cartService = inject(CartService);
+  private readonly productsServices = inject(ProductsServices);
 
   // Variables
   cartItems!: CartData | UpdateCartData | undefined;
@@ -37,7 +39,6 @@ export class Cart implements OnInit {
     this.isLoading = true;
     this.cartService.getCartItems().subscribe({
       next: (response) => {
-        console.log('Response from get cart', response);
         this.handleAfterResponse(response);
       },
     });

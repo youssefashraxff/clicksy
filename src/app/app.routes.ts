@@ -76,6 +76,13 @@ export const routes: Routes = [
             (module) => module.BRANDS_ROUTES
           ),
       },
+      {
+        path: 'checkout',
+        loadChildren: () =>
+          import('./features/payment/payment.routes').then(
+            (module) => module.PAYMENT_ROUTES
+          ),
+      },
     ],
   },
 ];
