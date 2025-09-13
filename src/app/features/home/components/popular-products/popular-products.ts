@@ -45,7 +45,7 @@ export class PopularProducts implements OnInit {
   }
   getAllProducts() {
     this.productsServices
-      .getAllProducts({ page: this.page, limit: 10 })
+      .getAllProducts({ page: this.page, limit: 20 })
       .subscribe({
         next: (response) => {
           this.allProducts = response.data;

@@ -28,7 +28,7 @@
     <div>
       <div>
         <h2
-          class="tracking-widest title-font font-medium text-gray-400 mb-1"
+          class="tracking-widest title-font font-medium text-gray-400"
           [ngClass]="isInCarousel ? 'text-sm' : 'text-xs md:text-sm'"
         >
           {{ product.category.name }}
@@ -38,13 +38,11 @@
             [routerLink]="['/details', product._id, product.slug]"
             [queryParams]="{ page: page }"
             [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
-            class="title-font font-semibold text-gray-900 line-clamp-1"
+            class="font-normal text-gray-900 line-clamp-1"
           >
             {{ product.title }}
           </a>
-          <div
-            class="flex justify-center items-center gap-1 text-sm md:text-base"
-          >
+          <div class="flex justify-center items-center gap-1 text-sm">
             <p>
               {{ product.ratingsAverage }}
             </p>
@@ -55,8 +53,7 @@
     </div>
     <div>
       <p
-        class="leading-relaxed mb-3 font-light text-gray-500 line-clamp-2"
-        [ngClass]="isInCarousel ? 'text-sm' : 'text-sm md:text-lg'"
+        class="leading-relaxed mb-3 font-light text-gray-500 line-clamp-2 text-xs"
       >
         {{ product.description }}
       </p>
@@ -86,7 +83,7 @@
     <div class="flex items-center justify-between gap-3">
       <div class="">
         <p
-          class="md:text-xl text-base font-bold text-main"
+          class="md:text-xl text-base font-semibold text-main"
           [ngClass]="isInCarousel ? 'xl:text-base' : ''"
         >
           @if(product.priceAfterDiscount){

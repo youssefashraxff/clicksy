@@ -40,7 +40,7 @@
   <!-- Products Grid -->
   <div class="products-grid">
     @for(product of allProducts | productsSearch : searchText | paginate: {
-    itemsPerPage: 10, currentPage: page, totalItems: totalItems } ; track
+    itemsPerPage: 20, currentPage: page, totalItems: totalItems } ; track
     product._id){
     <app-product-card
       [product]="product"
