@@ -1,1 +1,86 @@
-<p>checkout-page works!</p>
+<section class="mt-25 mb-5 px-5 md:px-15 lg:px-25 xl:px-35">
+  <header>
+    <h1 class="relative text-5xl text-main font-extrabold mb-5">Checkout</h1>
+  </header>
+  <form [formGroup]="paymentForm">
+    <div class="relative mb-4">
+      <label for="email" class="leading-7 text-sm text-gray-600"
+        >Shipping Address</label
+      >
+      <input
+        formControlName="details"
+        type="text"
+        id="details"
+        name="details"
+        class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+      />
+    </div>
+    <div class="relative mb-4">
+      <label for="email" class="leading-7 text-sm text-gray-600">City</label>
+      <input
+        formControlName="city"
+        type="text"
+        id="city"
+        name="city"
+        class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+      />
+    </div>
+    <div class="relative mb-4">
+      <label for="email" class="leading-7 text-sm text-gray-600"
+        >Phone Number</label
+      >
+      <input
+        formControlName="phone"
+        type="text"
+        id="phone"
+        name="phone"
+        class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+      />
+    </div>
+
+    <!-- <div class="flex flex-col gap-4 w-1/3">
+      <div class="flex justify-between items-center">
+        <label class="col-span-4" for="cash"
+          ><i class="fas fa-money-bill me-3"></i> Cash</label
+        >
+        <input
+          class="col-span-1 accent-secondary"
+          type="radio"
+          id="cash"
+          name="paymentMethod"
+          value="cash"
+          [(ngModel)]="selectedPayment"
+        />
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="col-span-4" for="card"
+          ><i class="fas fa-credit-card me-3"></i>Credit / Debit Card</label
+        >
+        <input
+          class="col-span-1 accent-secondary"
+          type="radio"
+          id="card"
+          name="paymentMethod"
+          value="card"
+          [(ngModel)]="selectedPayment"
+        />
+      </div>
+    </div>
+
+    
+    <div class="mt-6">
+      <button
+        class="btn-main"
+        (click)="pay(selectedPayment)"
+        [disabled]="!selectedPayment"
+      >
+        Checkout
+      </button>
+    </div> -->
+    <!-- Action Btns -->
+    <div class="flex gap-10">
+      <button class="btn-main" (click)="pay('cash')">Cash on Delivery</button>
+      <button class="btn-main" (click)="pay('card')">Pay by Card</button>
+    </div>
+  </form>
+</section>

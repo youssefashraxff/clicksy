@@ -1,5 +1,5 @@
 @if(!cartItems){
-<div class="flex flex-col justify-center items-center mt-40">
+<div class="flex flex-col justify-center items-center my-40">
   <img class="md:w-1/4 w-1/2" src="/errors/emptycart.png" alt="" />
   <p class="text-2xl font-extrabold">
     Your cart is <span class="text-secondary">Empty!</span>
@@ -29,7 +29,7 @@
       @for(item of cartProducts ;track item._id){
       <!-- Cart Item -->
       <div
-        class="relative grid md:grid-cols-5 grid-cols-7 border-1 border-gray-300 rounded-xl overflow-hidden mb-5"
+        class="relative grid md:grid-cols-7 grid-cols-7 border-1 border-gray-300 rounded-xl overflow-hidden mb-5"
       >
         <!-- Item Image -->
         <div class="md:col-span-1 col-span-2">
@@ -41,7 +41,7 @@
         </div>
         <!-- Item Details -->
         <div
-          class="md:col-span-4 col-span-5 flex md:flex-row flex-col md:justify-between justify-evenly md:items-center items-start px-5"
+          class="md:col-span-6 col-span-5 flex md:flex-row flex-col md:justify-between justify-evenly md:items-center items-start px-5"
         >
           <!-- Title and catergory -->
           <div class="flex flex-col justify-center items-start w-full">
@@ -138,7 +138,7 @@
         </div>
       </div>
       <button
-        routerLink="/checkout"
+        [routerLink]="['/checkout', cartId]"
         class="w-full bg-secondary hover:bg-secondary-muted duration-200 cursor-pointer text-white mt-5 border-0 py-2 px-6 rounded-lg text-base"
       >
         Proceed to checkout

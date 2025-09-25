@@ -77,10 +77,17 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'checkout',
+        path: 'checkout/:cartId',
         loadChildren: () =>
           import('./features/payment/payment.routes').then(
             (module) => module.PAYMENT_ROUTES
+          ),
+      },
+      {
+        path: 'allorders',
+        loadComponent: () =>
+          import('./features/cart/pages/all-orders/all-orders.component').then(
+            (module) => module.AllOrdersComponent
           ),
       },
     ],

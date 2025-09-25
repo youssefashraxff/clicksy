@@ -1,6 +1,7 @@
 import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 
 export const authenticationGuard: CanActivateFn = (
   route,
@@ -12,6 +13,9 @@ export const authenticationGuard: CanActivateFn = (
   if (isPlatformBrowser(platformId)) {
     const token = localStorage.getItem('token');
     if (token) {
+      const userData = jwtDecode(token) as { id: string };
+      console.log(jwtDecode(token));
+      localStorage.setItem('userId', userData.id);
       return true;
     }
   }

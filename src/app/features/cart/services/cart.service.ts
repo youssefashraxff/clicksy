@@ -6,6 +6,7 @@ import { GetCartResponse } from '../interfaces/GetCartResponse.interface';
 import { CartData, DeleteItemResponse } from '../interfaces/DeleteItemResponse';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UpdateItemResponse } from '../interfaces/UpdateItemResponse.interface';
+import { OrdersResponse } from '../interfaces/GetOrdersResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +61,11 @@ export class CartService extends Basehttp {
 
   // Clear the cart
   clearCart(): Observable<string> {
-    const token = localStorage.getItem('token');
     return this.delete<string>(API_KEYS.cartKey);
+  }
+
+  // Get User orders
+  getOrders(userId: string): Observable<OrdersResponse[]> {
+    return this.get<OrdersResponse[]>(`${API_KEYS.ordersKey}/${userId}`);
   }
 }

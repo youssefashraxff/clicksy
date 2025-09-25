@@ -24,6 +24,7 @@ export class Cart implements OnInit {
   private readonly productsServices = inject(ProductsServices);
 
   // Variables
+  cartId!: string;
   cartItems!: CartData | UpdateCartData | undefined;
   cartProducts!: CartItems[] | undefined;
   TotalDiscount: number = 0;
@@ -85,6 +86,7 @@ export class Cart implements OnInit {
   handleAfterResponse(response: any) {
     this.isLoading = false;
     this.isLoadingDelete = false;
+    this.cartId = response.cartId;
     this.cartItems = response.data;
     this.cartProducts = response.data.products;
     this.totalCartPrice = response.data.totalCartPrice;
